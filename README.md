@@ -17,5 +17,5 @@ Required CPP version at least 17
 - Distances Calculation for 2d grid 
 
 # Used Libs
-- Niels Lohmann Jsnon library
+- Niels Lohmann Json library
 https://github.com/nlohmann/json
