@@ -53,7 +53,7 @@ bool Font::LoadTextInfo(const std::string& jsonPath) {
                 << " W: " << sourceRectangles[i].w << " H: " << sourceRectangles[i].h << "\n";
 
         }*/
-        std::cout << "InterLine: " << standardInterLine << "\n";
+        //std::cout << "InterLine: " << standardInterLine << "\n";
 
     }
     else
@@ -64,9 +64,9 @@ bool Font::LoadTextInfo(const std::string& jsonPath) {
     return true;
 }
 
-void Font::RenderText(SDL_Renderer* renderer, std::string text, int x, int y, float scale, int interline, int textStartX, int textStartY) {
-    rectangle.x = x + textStartX;
-    rectangle.y = y + textStartY;
+void Font::RenderText(SDL_Renderer* renderer, std::string text, SDL_Rect &btnRect, float scale, int interline, int textStartX, int textStartY) {
+    rectangle.x = btnRect.x + textStartX;
+    rectangle.y = btnRect.y + textStartY;
     rectangle.w = 0;
     rectangle.h = 0;
     int temp = rectangle.x;
@@ -86,6 +86,122 @@ void Font::RenderText(SDL_Renderer* renderer, std::string text, int x, int y, fl
             }
         }
     }
+}
+
+void Font::RenderTextCenter(SDL_Renderer* renderer, std::string text, SDL_Rect &btnRect, float scale, int interline, int textStartX, int textStartY) {
+    Point textSizes = CalculatePredefinedSize(text,interline);
+
+    textSizes.x *= 0.5;
+    textSizes.y *= 0.5;
+    Point center = GetRectangleCenter(btnRect);
+    rectangle.x = center.x + textStartX - textSizes.x;
+    rectangle.y = center.y + textStartY - textSizes.y;
+    rectangle.w = 0;
+    rectangle.h = 0;
+    int temp = rectangle.x;
+
+
+    for (int i = 0; i < text.length(); i++)
+    {
+        if (text[i] < sourceRectangles.size()) {
+            if (text[i] != '\n') {
+                rectangle.w = sourceRectangles[text[i]].w * scale;
+                rectangle.h = sourceRectangles[text[i]].h * scale;
+                SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
+                rectangle.x += (sourceRectangles[text[i]].w * scale) + 1;
+            }
+            else
+            {
+                rectangle.y += interline * scale;
+                rectangle.x = temp;
+            }
+        }
+    }
+}
+
+
+void Font::RenderTextFromRight(SDL_Renderer* renderer, std::string text, SDL_Rect& btnRect, float scale, int interline, int textStartX, int textStartY) {
+    if (text.empty()) {
+        return;
+    }
+
+    rectangle.x = (btnRect.x + btnRect.w) - textStartX - (sourceRectangles[text[0]].w * scale);
+
+
+    rectangle.y = btnRect.y + textStartY;
+    rectangle.w = 0;
+    rectangle.h = 0;
+    int temp = rectangle.x;
+    for (int i = 0; i < text.length(); i++)
+    {
+        if (text[i] < sourceRectangles.size()) {
+            if (text[i] != '\n') {
+                rectangle.w = sourceRectangles[text[i]].w * scale;
+                rectangle.h = sourceRectangles[text[i]].h * scale;
+                SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
+                rectangle.x -= (sourceRectangles[text[i +1]].w * scale) + 1; // Potencially dangerous since in last iter it will acces string null character
+            }
+            else
+            {
+                rectangle.y += interline * scale;
+                rectangle.x = temp;
+            }
+        }
+    }
+}
+
+//Only use if button text is static and will not change between frames
+void Font::RenderTextCenterPred(SDL_Renderer* renderer, std::string text, SDL_Rect& btnRect, Point& textSizes, float scale, int interline, int textStartX, int textStartY) {
+    textSizes.x *= 0.5;
+    textSizes.y *= 0.5;
+    Point center = GetRectangleCenter(btnRect);
+    rectangle.x = center.x + textStartX - textSizes.x;
+    rectangle.y = center.y + textStartY - textSizes.y;
+    rectangle.w = 0;
+    rectangle.h = 0;
+    int temp = rectangle.x;
+
+
+    for (int i = 0; i < text.length(); i++)
+    {
+        if (text[i] < sourceRectangles.size()) {
+            if (text[i] != '\n') {
+                rectangle.w = sourceRectangles[text[i]].w * scale;
+                rectangle.h = sourceRectangles[text[i]].h * scale;
+                SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
+                rectangle.x += (sourceRectangles[text[i]].w * scale) + 1;
+            }
+            else
+            {
+                rectangle.y += interline * scale;
+                rectangle.x = temp;
+            }
+        }
+    }
+}
+
+
+Point Font::CalculatePredefinedSize(const std::string& fontText, int interline) {
+    Point predSize(0, 0 + interline);
+    bool firstLine = true;
+    for (int i = 0; i < fontText.length(); i++)
+    {
+        if (fontText[i] < sourceRectangles.size()) {
+            if (fontText[i] != '\n') {
+                if (firstLine) {
+                    predSize.x += sourceRectangles[fontText[i]].w;
+                }
+
+            }
+            else
+            {
+                predSize.y += interline;
+                firstLine = false;
+            }
+        }
+    }
+
+    return predSize;
 }
 
 int Font::GetStandardInterline() {

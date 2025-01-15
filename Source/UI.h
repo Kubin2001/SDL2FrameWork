@@ -34,6 +34,10 @@ protected:
 
     Font* font = nullptr;
 
+    unsigned short textRenderType = 1;
+
+    Point predefinedSize;
+
 public:
 
     SDL_Texture* GetTexture();
@@ -86,15 +90,23 @@ public:
 
     void RenderText(SDL_Renderer* renderer);
 
+    void SetRenderTextType(const unsigned short textRenderType);
 };
 
 class InteractionBox : public TemplateUIElement {
 private:
     bool status = false;
+    bool turnedOn = true;
 public:
     bool GetStatus();
 
     void SetStatus(bool value);
+
+    void TurnOn();
+
+    void TurnOff();
+
+    bool IsOn();
 };
 
 class MassageBox : public TemplateUIElement {

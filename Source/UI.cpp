@@ -151,15 +151,33 @@ void TemplateUIElement::RenderBorder(SDL_Renderer* renderer) {
 
 void TemplateUIElement::RenderText(SDL_Renderer* renderer) {
     if (font != nullptr) {
-
-        SDL_SetTextureColorMod(font->GetTexture(), 255, 255, 255); // Reset tak czy siak niewa¿ne czy bia³e czy nie
+        SDL_SetTextureColorMod(font->GetTexture(), 255, 255, 255); // Reset anyway no matter the color
         SDL_SetTextureColorMod(font->GetTexture(), fontRGB[0], fontRGB[1], fontRGB[2]);
-        font->RenderText(renderer, text, rectangle.x,
-            rectangle.y, textScale, interLine
-            , textStartX, textStartY);
+        switch (textRenderType) {
+            case 1:
+                font->RenderText(renderer, text, rectangle, textScale, interLine, textStartX, textStartY);
+                break;
+            case 2:
+                font->RenderTextCenter(renderer, text, rectangle, textScale, interLine, textStartX, textStartY);
+                break;
+            case 3:
+                font->RenderTextFromRight(renderer, text, rectangle, textScale, interLine, textStartX, textStartY);
+                break;
+            case 4:
+                predefinedSize = font->CalculatePredefinedSize(text, interLine);
+                font->RenderTextCenterPred(renderer, text, rectangle,predefinedSize, textScale, interLine, textStartX, textStartY);
+                break;
+            default: // Standardowa opcja
+                font->RenderText(renderer, text, rectangle, textScale, interLine, textStartX, textStartY);
+                break;
+        }
+
     }
 }
 
+void TemplateUIElement::SetRenderTextType(const unsigned short textRenderType) {
+    this->textRenderType = textRenderType;
+}
 
 //BUTTON
 //MassageBox
@@ -204,6 +222,18 @@ bool InteractionBox::GetStatus() {
 void InteractionBox::SetStatus(bool value) {
     status = value;
 }
+
+void InteractionBox::TurnOn() {
+    turnedOn = true;
+}
+
+void InteractionBox::TurnOff() {
+    turnedOn = false;
+}
+
+bool InteractionBox::IsOn() {
+    return turnedOn;
+}
 //InteractionBox
 
 UI::UI(SDL_Renderer* renderer) {
@@ -217,10 +247,6 @@ void UI::LoadTextures() {
     TextureManager::LoadMultipleTextures("Textures/Interface/Fonts");
     TextureManager::LoadMultipleTextures("Textures/Interface/Others");
 }
-
-
-
-
 
 void UI::Render() {
     for (size_t i = 0; i < Buttons.size(); i++)
@@ -359,16 +385,16 @@ void UI::ManageMassageBoxTextInput(SDL_Event& event) {
 }
 
 void UI::CheckInteractionBoxes(SDL_Event& event) {
-    for (size_t i = 0; i < InteractionBoxes.size(); i++)
-    {
-        if (event.type == SDL_MOUSEBUTTONUP) {
-            SDL_Rect temprect{ event.button.x ,event.button.y,1,1 };
-            if (SimpleCollision(*InteractionBoxes[i]->GetRectangle(), temprect)) {
-                InteractionBoxes[i]->SetStatus(true);
+    if (event.type == SDL_MOUSEBUTTONUP) {
+        for (size_t i = 0; i < InteractionBoxes.size(); i++) {
+            if (InteractionBoxes[i]->IsOn()) {
+                SDL_Rect temprect{ event.button.x ,event.button.y,1,1 };
+                if (SimpleCollision(*InteractionBoxes[i]->GetRectangle(), temprect)) {
+                    InteractionBoxes[i]->SetStatus(true);
+                }
             }
         }
     }
-
 }
 
 Button* UI::GetButtonByName(const std::string& name) {

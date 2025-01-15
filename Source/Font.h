@@ -2,6 +2,7 @@
 #include <iostream>
 #include <SDL.h>
 #include <vector>
+#include "Addons.h"
 
 
 class Font {
@@ -28,7 +29,16 @@ public:
 
     bool LoadTextInfo(const std::string& jsonPath);
 
-    void RenderText(SDL_Renderer* renderer, std::string text, int x, int y, float scale = 1.0, int interline = 20, int textStartX = 0, int textStartY = 0);
+    void RenderText(SDL_Renderer* renderer, std::string text, SDL_Rect &btnRect, float scale = 1.0, int interline = 20, int textStartX = 0, int textStartY = 0);
+
+    void RenderTextCenter(SDL_Renderer* renderer, std::string text, SDL_Rect &btnRect, float scale = 1.0, int interline = 20, int textStartX = 0, int textStartY = 0);
+
+    void RenderTextFromRight(SDL_Renderer* renderer, std::string text, SDL_Rect& btnRect, float scale = 1.0, int interline = 20, int textStartX = 0, int textStartY = 0);
+
+    void RenderTextCenterPred(SDL_Renderer* renderer, std::string text, SDL_Rect& btnRect,Point &textSizes, float scale = 1.0, int interline = 20, int textStartX = 0, int textStartY = 0);
+
+    Point CalculatePredefinedSize(const std::string &fontText, int interline);
+
 };
 
 class FontManager {

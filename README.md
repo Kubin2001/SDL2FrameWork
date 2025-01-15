@@ -19,3 +19,15 @@ Required CPP version at least 17
 # Used Libs
 - Niels Lohmann Json library
 https://github.com/nlohmann/json
+
+
+#Changes
+
+1.01
+- Interaction box can now be turned on or off
+- Interaction box calculation speed optimalization
+- Option to choose text rendering type (standard,center or from right)
+ - Standard text is rendered from the left side of the button (very fast)
+ - Center text is rendered at the center of the button (slowest)
+ - Right text is rendered from the right part of the button (fast)
+ - Center Predefined text is rendered from the center with a precalcualated dimensions only works correctly with static text (medium)
