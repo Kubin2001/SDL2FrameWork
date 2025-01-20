@@ -31,3 +31,6 @@ https://github.com/nlohmann/json
  - Center text is rendered at the center of the button (slowest)
  - Right text is rendered from the right part of the button (fast)
  - Center Predefined text is rendered from the center with a precalcualated dimensions only works correctly with static text (medium)
+ 
+ 1.011
+ - Small fix for rendering text from right

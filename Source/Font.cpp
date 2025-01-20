@@ -125,30 +125,29 @@ void Font::RenderTextFromRight(SDL_Renderer* renderer, std::string text, SDL_Rec
         return;
     }
 
-    rectangle.x = (btnRect.x + btnRect.w) - textStartX - (sourceRectangles[text[0]].w * scale);
-
-
+    rectangle.x = (btnRect.x + btnRect.w) - textStartX;
     rectangle.y = btnRect.y + textStartY;
     rectangle.w = 0;
     rectangle.h = 0;
-    int temp = rectangle.x;
-    for (int i = 0; i < text.length(); i++)
-    {
+    int initialX = rectangle.x; 
+
+    for (int i = text.length() - 1; i >= 0; --i) {
         if (text[i] < sourceRectangles.size()) {
             if (text[i] != '\n') {
                 rectangle.w = sourceRectangles[text[i]].w * scale;
                 rectangle.h = sourceRectangles[text[i]].h * scale;
+
+                rectangle.x -= rectangle.w + 1; 
                 SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
-                rectangle.x -= (sourceRectangles[text[i +1]].w * scale) + 1; // Potencially dangerous since in last iter it will acces string null character
             }
-            else
-            {
+            else {
                 rectangle.y += interline * scale;
-                rectangle.x = temp;
+                rectangle.x = initialX; 
             }
         }
     }
 }
+
 
 //Only use if button text is static and will not change between frames
 void Font::RenderTextCenterPred(SDL_Renderer* renderer, std::string text, SDL_Rect& btnRect, Point& textSizes, float scale, int interline, int textStartX, int textStartY) {
