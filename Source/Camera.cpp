@@ -29,7 +29,7 @@ void Camera::UpdatePosition(const Uint8* state) {
     if (state[SDL_SCANCODE_W]) {
         rectangle.y -= 3 + (zoomRelativeMoveSpeed * 15);
     }
-    if (state[SDL_SCANCODE_O]) { // Oddalanie
+    if (state[SDL_SCANCODE_O]) { // Zoom Out
         if (zoom > 1.0f) {
             zoom -= 0.1f;
             zoomRelativeMoveSpeed += 0.5f;
@@ -40,7 +40,7 @@ void Camera::UpdatePosition(const Uint8* state) {
             zoomRelativeMoveSpeed += 0.05f;
         }
     }
-    if (state[SDL_SCANCODE_P]) { // Przybli¿anie
+    if (state[SDL_SCANCODE_P]) { // Zoom in
         if (zoom < 2.0f)
         {
             zoom += 0.01f;

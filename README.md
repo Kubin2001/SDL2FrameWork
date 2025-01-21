@@ -34,3 +34,8 @@ https://github.com/nlohmann/json
  
  1.011
  - Small fix for rendering text from right
+ 
+ 1.02
+ - Warning when name collision is created in ui element addition
+ - New Interaction box function that return status and immidetly sets it to true to prevent manual reset
+ - A lot of comments for functions

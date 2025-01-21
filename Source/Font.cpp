@@ -28,6 +28,8 @@ SDL_Rect* Font::GetRectangle() {
     return &rectangle;
 }
 
+// Loads json file (can be created with most of font generator websides you can change max vector size to accept ASCI over 200)
+
 bool Font::LoadTextInfo(const std::string& jsonPath) {
     sourceRectangles.resize(200);
     std::ifstream file(jsonPath);
@@ -64,6 +66,8 @@ bool Font::LoadTextInfo(const std::string& jsonPath) {
     return true;
 }
 
+
+// Basic text rendering with possition in left up corner of the button
 void Font::RenderText(SDL_Renderer* renderer, std::string text, SDL_Rect &btnRect, float scale, int interline, int textStartX, int textStartY) {
     rectangle.x = btnRect.x + textStartX;
     rectangle.y = btnRect.y + textStartY;
@@ -216,7 +220,6 @@ void Font::SetStandardInterline(int temp) {
 
 FontManager::FontManager() {
 }
-
 
 bool FontManager::CreateFont(const std::string& name, SDL_Texture* texture, const std::string& jsonPath) {
     if (fonts.size() > 0) {

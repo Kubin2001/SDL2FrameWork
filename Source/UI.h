@@ -93,6 +93,7 @@ public:
     void SetRenderTextType(const unsigned short textRenderType);
 };
 
+// A button that can be clicked with a mouse
 class InteractionBox : public TemplateUIElement {
 private:
     bool status = false;
@@ -102,13 +103,18 @@ public:
 
     void SetStatus(bool value);
 
+    bool ConsumeStatus();
+
     void TurnOn();
 
     void TurnOff();
 
     bool IsOn();
+
 };
 
+
+// Button that can accept text input
 class MassageBox : public TemplateUIElement {
 private:
     bool turnedOn = false;
@@ -118,13 +124,13 @@ public:
     void ManageTextInput(SDL_Event& event);
 };
 
-
+// Basic non interactive button
 class Button : public TemplateUIElement {
 
 
 };
 
-
+// To propelly start the UI you need to pleace manage input function in event loop and render in rendering loop
 class UI
 {
 private:
@@ -194,6 +200,7 @@ public:
 
     std::vector<InteractionBox*>& GetInteractionBoxes();
 
+    // You need to provide not name (made up by you) texture (needs to be already loaded by texture manager) path to pregenerated json file
     void CreateFont(const std::string& name, SDL_Texture* texture, const std::string& jsonPath);
 
     Font* GetFont(const std::string& name);
