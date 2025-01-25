@@ -39,3 +39,8 @@ https://github.com/nlohmann/json
  - Warning when name collision is created in ui element addition
  - New Interaction box function that return status and immidetly sets it to true to prevent manual reset
  - A lot of comments for functions
+ 
+ 1.03
+ - New function to scan font and create json file from scratch
+ - Texture manager now no longer can load textures with the same name
+ - UI automaticaly loads its required textures

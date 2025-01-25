@@ -205,6 +205,17 @@ public:
 
     Font* GetFont(const std::string& name);
 
+    //Function to create json file for font png file that contains charcter glyps separated by lines in other color than the font
+    //Requires provided txt file with ordered glyps
+    //Example:
+    //A
+    //B
+    //C
+    //And so on...
+    void ScanFont(const std::string& texturePath, const std::string& charactersDataPath,
+        unsigned char fR, unsigned char fG, unsigned char fB, unsigned char bR, unsigned char bG, unsigned char bB, Point size,
+        const std::string& outputPath);
+
     void ClearAllButtons();
 
 

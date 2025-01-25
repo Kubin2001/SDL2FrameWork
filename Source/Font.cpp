@@ -3,6 +3,15 @@
 #include "Font.h"
 #include "json.hpp"
 #include <fstream>
+#include <SDL_image.h>
+#include <fstream>
+
+struct Pixel {
+    unsigned char R;
+    unsigned char G;
+    unsigned char B;
+    unsigned char A;
+};
 
 Font::Font(const std::string& name, SDL_Texture* texture, const std::string& jsonPath) {
     this->name = name;
@@ -242,6 +251,135 @@ Font* FontManager::GetFont(const std::string& name) {
         }
     }
     return nullptr;
+}
+
+void FontManager::ScanFont(const std::string& texturePath, const std::string& charactersDataPath,
+    unsigned char fR, unsigned char fG, unsigned char fB, unsigned char bR, unsigned char bG, unsigned char bB, int width, int height
+    , const std::string& outputPath) {
+
+    // Loading data from texture
+    const char* texturepathArray = texturePath.c_str();
+    SDL_Surface* surface = IMG_Load(texturepathArray);
+
+    std::vector<std::vector<Pixel>> mappedFont(width,std::vector<Pixel>(height));
+
+
+
+    Uint8 r, g, b, a;
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            Uint32* pixelPtr = (Uint32*)((Uint8*)surface->pixels + y * surface->pitch) + x;
+            SDL_GetRGBA(*pixelPtr, surface->format, &r, &g, &b, &a);
+
+            Pixel pixel{ r,g,b,a };
+            mappedFont[x][y] = pixel;
+        }
+    }
+
+    SDL_FreeSurface(surface);
+
+    //Reading glyps data from texture
+    Pixel border{ bR,bG,bB,255};
+
+    Pixel font{ fR,fG,fB,255};
+
+    short maxX = -1;
+    short minX = 10000;
+
+    short maxY = -1;
+    short minY = 10000;
+
+
+    std::vector<SDL_Rect> jsonRectangles;
+
+    for (int i = 0; i < width; i++)
+    {
+        for (int j = 0; j < height; j++)
+        {
+            if (mappedFont[i][j].R == border.R && mappedFont[i][j].G == border.G && mappedFont[i][j].B == border.B && mappedFont[i][j].A == 255) {
+                ++i;
+                SDL_Rect rect = { minX, minY, maxX - minX, maxY - minY };
+                jsonRectangles.push_back(rect);
+
+                maxX = -1;
+                minX = 10000;
+
+                maxY = -1;
+                minY = 10000;
+                if (i == width) { break; }
+
+            }
+            else if(mappedFont[i][j].R == font.R && mappedFont[i][j].G == font.G && mappedFont[i][j].B == font.B){
+
+                if (maxX < i) { maxX = i; }    
+
+                if (maxY < j) { maxY = j; }
+
+                if (i < minX) { minX = i; }
+
+                if (j < minY) { minY = j; }
+            }
+        }
+    }
+
+    // Height adjustment to make all rectangles render in same line
+    int maxH = 0;
+    for (int i = 0; i < jsonRectangles.size(); i++)
+    {
+        if (jsonRectangles[i].h > maxH) { maxH = jsonRectangles[i].h; }
+    }
+
+    for (int i = 0; i < jsonRectangles.size(); i++)
+    {
+        if (jsonRectangles[i].h < maxH) { 
+            jsonRectangles[i].y -= (maxH - jsonRectangles[i].h);
+            jsonRectangles[i].h = maxH;
+        }
+    }
+
+    //Reading charaters from provided txt file
+    std::vector<int> Characters;
+
+    std::fstream declarations(charactersDataPath);
+
+    std::string line;
+
+    while (std::getline(declarations,line)){
+        Characters.emplace_back(line[0]);
+
+    }
+
+    for (size_t i = 0; i < Characters.size(); i++)
+    {
+        std::cout << static_cast<char>(Characters[i]) << " X: " << jsonRectangles[i].x <<" Y: "<<jsonRectangles[i].y 
+            << " W: " << jsonRectangles[i].w<<" H: "<<jsonRectangles[i].h<<"\n";
+    }
+    declarations.close();
+
+    // Creting json file for texture
+    nlohmann::ordered_json fontJSON;
+
+    for (size_t i = 0; i < Characters.size(); ++i) {
+
+        fontJSON[std::to_string(Characters[i])] = {
+            {"text", std::string(1, static_cast<char>(Characters[i]))}, 
+            {"x", jsonRectangles[i].x},                                             
+            {"y", jsonRectangles[i].y},                                             
+            {"width", jsonRectangles[i].w},                                         
+            {"height", jsonRectangles[i].h},                                        
+            {"baseline", 0}                              
+        };
+    }
+
+    std::ofstream file(outputPath);
+    if (file.is_open()) {
+        file << fontJSON.dump(4); 
+        file.close();
+        std::cout << "Font JSON generated successfully: " << outputPath << "\n";
+    }
+    else {
+        std::cerr << "Failed to open file for writing: " << outputPath << "\n";
+    }
 }
 
 FontManager::~FontManager() {

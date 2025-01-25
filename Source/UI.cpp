@@ -247,6 +247,9 @@ bool InteractionBox::IsOn() {
 UI::UI(SDL_Renderer* renderer) {
     fontManager = new FontManager();
     this->renderer = renderer;
+    if (TextureManager::isWorking()) {
+        LoadTextures();
+    }
 }
 
 
@@ -631,6 +634,12 @@ Font* UI::GetFont(const std::string& name) {
     return fontManager->GetFont(name);
 }
 
+void UI::ScanFont(const std::string& texturePath, const std::string& charactersDataPath,
+    unsigned char fR, unsigned char fG, unsigned char fB, unsigned char bR, unsigned char bG, unsigned char bB, Point size,
+    const std::string& outputPath) {
+    fontManager->ScanFont(texturePath, charactersDataPath, fR, fG, fB, bR, bG, bB, size.x, size.y);
+}
+
 void UI::ClearAllButtons() {
     for (auto& it : Buttons) {
         delete it;
@@ -653,4 +662,5 @@ void UI::ClearAllButtons() {
 
 UI::~UI() {
     ClearAllButtons();
+    delete fontManager;
 }

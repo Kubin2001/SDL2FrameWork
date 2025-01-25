@@ -12,10 +12,13 @@ class TextureManager {
 	private:
 		static std::unordered_map<std::string, SDL_Texture *> Textures;
 		static SDL_Renderer* renderer;
+		static bool isInnit;
 
 	public:
 		
 		static bool Start(SDL_Renderer* ren);
+
+		static bool isWorking();
 		
 		static void LoadSingleTexture(const char* filePath, const std::string& name);
 
