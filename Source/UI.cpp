@@ -280,7 +280,8 @@ void UI::CreateButton(std::string name, int x, int y, int w, int h, SDL_Texture*
     std::string text, float textScale, int textStartX, int textStartY, int borderThickness) {
 
     if (GetButtonByName(name) != nullptr) {
-        std::cout << "Warning name collision button with name: " << name << " already exists\n";
+        std::cout << "Warning name collision button with name: " << name << " already exists addition abborted\n";
+        return;
     }
 
     Buttons.emplace_back(new Button());
@@ -318,7 +319,8 @@ void UI::CreateMassageBox(std::string name, int x, int y, int w, int h, SDL_Text
     std::string text, float textScale, int textStartX, int textStartY, int borderThickness) {
 
     if (GetMassageBoxByName(name) != nullptr) {
-        std::cout << "Warning name collision massage box with name: " << name << " already exists\n";
+        std::cout << "Warning name collision massage box with name: " << name << " already exists addition abborted\n";
+        return;
     }
 
     MassageBoxes.emplace_back(new MassageBox());
@@ -359,8 +361,9 @@ void UI::CreateMassageBox(std::string name, int x, int y, int w, int h, SDL_Text
 void UI::CreateInteractionBox(std::string name, int x, int y, int w, int h, SDL_Texture* texture, Font* font,
     std::string text, float textScale, int textStartX, int textStartY, int borderThickness) {
 
-    if (GetButtonByName(name) != nullptr) {
-        std::cout << "Warning name collision interaction box with name: " << name << " already exists\n";
+    if (GetInteractionBoxByName(name) != nullptr) {
+        std::cout << "Warning name collision interaction box with name: " << name << " already exists addition abborted\n";
+        return;
     }
 
     InteractionBoxes.emplace_back(new InteractionBox());

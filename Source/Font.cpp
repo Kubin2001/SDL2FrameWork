@@ -356,7 +356,7 @@ void FontManager::ScanFont(const std::string& texturePath, const std::string& ch
     }
     declarations.close();
 
-    // Creting json file for texture
+    // Creating json file for texture
     nlohmann::ordered_json fontJSON;
 
     for (size_t i = 0; i < Characters.size(); ++i) {
@@ -380,6 +380,8 @@ void FontManager::ScanFont(const std::string& texturePath, const std::string& ch
     else {
         std::cerr << "Failed to open file for writing: " << outputPath << "\n";
     }
+
+    std::cout << "Font succesfully scanned\n";
 }
 
 FontManager::~FontManager() {
