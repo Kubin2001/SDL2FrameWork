@@ -44,3 +44,6 @@ https://github.com/nlohmann/json
  - New function to scan font and create json file from scratch
  - Texture manager now no longer can load textures with the same name
  - UI automaticaly loads its required textures
+ 
+ 1.04
+ - Basic Scene Manager Tests

@@ -6,6 +6,7 @@
 #include "GlobalVariables.h"
 #include "TextureManager.h"
 #include "SoundManager.h"
+#include "SceneManager.h"
 
 
 Game::Game() {
@@ -40,9 +41,13 @@ void Game::Start() {
     //ui->GetInteractionBoxByName("box1")->SetRenderTextType(2);
     //ui->CreateInteractionBox("box1", 100, 100, 100, 30, nullptr);
 
+    MainMenu* mainMenu = new MainMenu();
 
+    SceneManager::AddScene(mainMenu, "Main Menu");
 
+    SceneManager::SetScene("Main Menu");
 
+    SceneManager::GetCurrentScene()->Init(renderer, ui.get());
 }
 
 void Game::LoadTextures() {
