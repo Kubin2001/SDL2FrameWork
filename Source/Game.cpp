@@ -41,13 +41,6 @@ void Game::Start() {
     //ui->GetInteractionBoxByName("box1")->SetRenderTextType(2);
     //ui->CreateInteractionBox("box1", 100, 100, 100, 30, nullptr);
 
-    MainMenu* mainMenu = new MainMenu();
-
-    SceneManager::AddScene(mainMenu, "Main Menu");
-
-    SceneManager::SetScene("Main Menu");
-
-    SceneManager::GetCurrentScene()->Init(renderer, ui.get());
 }
 
 void Game::LoadTextures() {
@@ -55,56 +48,15 @@ void Game::LoadTextures() {
 
 void Game::GameLogic() {
     EventsLogic();
-    MovementLogic();
 }
 
 void Game::EventsLogic() {
     Global::frameCounter++;
-    FiveTickEvents();
 }
 
-void Game::MovementLogic() {
-
-}
-
-void Game::FiveTickEvents() {
-    if (Global::frameCounter % 5 == 0) {
-        //FiveTicks
-        //FiveTicks
-        if (Global::frameCounter % 20 == 0) {
-            TwentyTickEvents();
-        }
-        if (Global::frameCounter % 50 == 0) {
-            FiftyTickEvents();
-            if (Global::frameCounter % 100 == 0) {
-                HundretTickEvents();
-            }
-            if (Global::frameCounter % 500 == 0) {
-                FiveHundretTickEvents();
-            }
-        }
-    }
-}
-
-void Game::TwentyTickEvents() {
-
-}
-
-void Game::FiftyTickEvents() {
-
-}
-
-void Game::HundretTickEvents() {
-
-}
-
-void Game::FiveHundretTickEvents() {
-
-}
 
 void Game::GameConstant() {
     EventsConstant();
-    MovementConstant();
     Render();
 }
 
@@ -114,32 +66,15 @@ void Game::GameConstant() {
 void Game::EventsConstant() {
     while (SDL_PollEvent(&event)) {
         ui->ManageInput(event);
+        Exit();
     }
+
+    const Uint8* state = SDL_GetKeyboardState(NULL);
+
+
     Global::inputDelay++;
 }
 
-void Game::MovementConstant() {
-    SDL_PumpEvents();
-    const Uint8* state = SDL_GetKeyboardState(NULL);
-    camera->UpdatePosition(state);
-    if (Global::inputDelay > 10) {
-        if (state[SDL_SCANCODE_C]) {
-            Global::inputDelay = 0;
-        }
-        if (state[SDL_SCANCODE_X]) {
-        }
-    }
-    Exit(state);
-}
-
-
-
-
-void Game::Exit(const Uint8* state) {
-    if (state[SDL_SCANCODE_ESCAPE]) {
-        Global::status = false;
-    }
-}
 
 
 void Game::Render() {
@@ -148,8 +83,20 @@ void Game::Render() {
     SDL_RenderPresent(renderer);
 }
 
+
+void Game::Exit() {
+    if (event.type == SDL_QUIT) {
+        Global::status = false; 
+    }
+    else if (event.type == SDL_KEYDOWN && event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
+        Global::status = false;
+    }
+}
+
+
 Game::~Game() {
     TextureManager::Clear();
+    SoundManager::Clear();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

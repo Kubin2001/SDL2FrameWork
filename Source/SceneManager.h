@@ -39,7 +39,17 @@ class SceneManager {
 
 		static void SetScene(const std::string& sceneName);
 
+		static void SwitchScene(const std::string& sceneName);
+
 		static void Clear();
 
 		static Scene* GetCurrentScene();
+
+		static void AddData(const std::string& key, std::any data);
+
+		static std::any GetData(const std::string& key);
+
+		static void ClearData(const std::string& key);
+
+		static void ClearAllData();
 };

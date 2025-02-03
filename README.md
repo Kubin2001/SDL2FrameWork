@@ -47,3 +47,5 @@ https://github.com/nlohmann/json
  
  1.04
  - Basic Scene Manager Tests
+ - Easier Game Loop
+ - Shared Data for Scene Manager

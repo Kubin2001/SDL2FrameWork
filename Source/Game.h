@@ -26,25 +26,11 @@ public:
 
     void EventsLogic();
 
-    void MovementLogic();
-
-    void FiveTickEvents();
-
-    void TwentyTickEvents();
-
-    void FiftyTickEvents();
-
-    void HundretTickEvents();
-
-    void FiveHundretTickEvents();
-
     void GameConstant();
 
     void EventsConstant();
 
-    void MovementConstant();
-
-    void Exit(const Uint8* state);
+    void Exit();
 
     void Render();
 
