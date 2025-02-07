@@ -35,12 +35,13 @@ void Game::Start() {
     ui->CreateFont("arial20px", TextureManager::GetTextureByName("arial20px"), "Textures/Interface/Fonts/arial20px.json");
     ui->CreateFont("arial12px", TextureManager::GetTextureByName("arial12px"), "Textures/Interface/Fonts/arial12px.json");
 
-    //Example code to create a simple button
+    //Example code to create a simple buttons
     //ui->CreateInteractionBox("box1", 100, 100, 100, 30, TextureManager::GetTextureByName("buttonGrey"), ui->GetFont("arial12px"), "Example text");
     //ui->GetInteractionBoxByName("box1")->SetFontColor(0, 0, 0);
     //ui->GetInteractionBoxByName("box1")->SetRenderTextType(2);
-    //ui->CreateInteractionBox("box1", 100, 100, 100, 30, nullptr);
 
+    //ui->CreateInteractionBox("box2", 200, 200, 100, 30, nullptr);
+    //ui->GetInteractionBoxByName("box2")->SetButtonColor(30,30,30);
 }
 
 void Game::LoadTextures() {
