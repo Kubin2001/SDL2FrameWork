@@ -47,31 +47,26 @@ void Game::Start() {
 void Game::LoadTextures() {
 }
 
-void Game::GameLogic() {
-    EventsLogic();
-}
-
-void Game::EventsLogic() {
+void Game::LogicUpdate() {
     Global::frameCounter++;
 }
 
 
-void Game::GameConstant() {
-    EventsConstant();
+void Game::FrameUpdate() {
+    Input();
     Render();
 }
 
 
 
 
-void Game::EventsConstant() {
+void Game::Input() {
     while (SDL_PollEvent(&event)) {
         ui->ManageInput(event);
         Exit();
     }
 
     const Uint8* state = SDL_GetKeyboardState(NULL);
-
 
     Global::inputDelay++;
 }
@@ -98,6 +93,7 @@ void Game::Exit() {
 Game::~Game() {
     TextureManager::Clear();
     SoundManager::Clear();
+    SceneManager::Clear();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

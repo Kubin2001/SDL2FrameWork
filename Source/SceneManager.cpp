@@ -30,13 +30,13 @@ void SceneManager::SetScene(const std::string& sceneName) {
 	}
 }
 
-void SceneManager::SwitchScene(const std::string& sceneName) {
+void SceneManager::SwitchScene(const std::string& sceneName, SDL_Renderer* renderer, UI* ui) {
 	if (Scenes.find(sceneName) != Scenes.end()) {
 		if (currentScene != nullptr) {
 			currentScene->Clear();
 		}
 		currentScene = Scenes[sceneName];
-		currentScene->Init();
+		currentScene->Init(renderer,ui);
 
 	}
 	else
@@ -59,17 +59,18 @@ Scene* SceneManager::GetCurrentScene() {
 
 
 void SceneManager::AddData(const std::string& key, std::any data) {
-	SharedData.insert({ key,data });
+	SharedData[key] = data;
 }
 
 
-std::any SceneManager::GetData(const std::string& key) {
+std::any &SceneManager::GetData(const std::string& key) {
 	if (SharedData.find(key) != SharedData.end()) {
 		return SharedData[key];
 	}
 	else
 	{
-		return std::any{};
+		std::cout << "Error data: " << key << " not found." << "\n";
+		return SharedData[key];
 	}
 }
 

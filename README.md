@@ -10,6 +10,8 @@ Required CPP version at least 17
 - UI creation
 - Text rendering
 - Texture Manager
+- Sound Manager
+- Scene System
 - Collision Detection
 - Basic Objects
 - Objects to simplyfy 2d grid managment
@@ -49,3 +51,7 @@ https://github.com/nlohmann/json
  - Basic Scene Manager Tests
  - Easier Game Loop
  - Shared Data for Scene Manager
+ 
+ 1.05
+ - Scene Manager has been finisched and tested
+ - UI element can be hidden

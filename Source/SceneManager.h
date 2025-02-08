@@ -15,9 +15,9 @@ class Scene {
 	public:
 		virtual void Init(SDL_Renderer* renderer = nullptr,UI* ui = nullptr) = 0;
 
-		virtual void GameTimeEvents() = 0; 
+		virtual void LogicUpdate() = 0;   
 
-		virtual void ConstTimeEvents() = 0;
+		virtual void FrameUpdate() = 0;  
 
 		virtual void Input(SDL_Event &event) = 0;
 
@@ -39,7 +39,7 @@ class SceneManager {
 
 		static void SetScene(const std::string& sceneName);
 
-		static void SwitchScene(const std::string& sceneName);
+		static void SwitchScene(const std::string& sceneName, SDL_Renderer* renderer = nullptr, UI* ui = nullptr);
 
 		static void Clear();
 
@@ -47,7 +47,7 @@ class SceneManager {
 
 		static void AddData(const std::string& key, std::any data);
 
-		static std::any GetData(const std::string& key);
+		static std::any &GetData(const std::string& key);
 
 		static void ClearData(const std::string& key);
 

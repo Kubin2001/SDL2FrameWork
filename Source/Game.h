@@ -22,13 +22,11 @@ public:
 
     void LoadTextures();
 
-    void GameLogic();
+    void LogicUpdate();
 
-    void EventsLogic();
+    void FrameUpdate();
 
-    void GameConstant();
-
-    void EventsConstant();
+    void Input();
 
     void Exit();
 
