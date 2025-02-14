@@ -39,6 +39,7 @@ void Game::Start() {
     //ui->CreateInteractionBox("box1", 100, 100, 100, 30, TextureManager::GetTextureByName("buttonGrey"), ui->GetFont("arial12px"), "Example text");
     //ui->GetInteractionBoxByName("box1")->SetFontColor(0, 0, 0);
     //ui->GetInteractionBoxByName("box1")->SetRenderTextType(2);
+    //ui->GetInteractionBoxByName("box1")->SetHoverFilter(1, 255, 255, 255, 120);
 
     //ui->CreateInteractionBox("box2", 200, 200, 100, 30, nullptr);
     //ui->GetInteractionBoxByName("box2")->SetButtonColor(30,30,30);

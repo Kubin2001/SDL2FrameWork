@@ -55,3 +55,4 @@ https://github.com/nlohmann/json
  1.05
  - Scene Manager has been finisched and tested
  - UI element can be hidden
+ - UI elements can be hooverable

@@ -20,12 +20,12 @@ int main(int argv, char* argc[])
         Global::TickTimer = SDL_GetTicks();
         if (Global::TickTimer > Global::LogicTimeEnd) {
             Global::LogicTimeEnd = Global::TickTimer + Global::frameDelay;
-            game->GameLogic();
+            game->LogicUpdate();
         }
 
         if (Global::TickTimer > Global::RenderingTimeEnd) {
             Global::RenderingTimeEnd = Global::TickTimer + 16;
-            game->GameConstant();
+            game->FrameUpdate();
         }
     }
 
