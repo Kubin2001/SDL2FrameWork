@@ -3,58 +3,11 @@
 #include <SDL.h>
 #include <string>
 #include <unordered_map>
-#include <any>
 #include "UI.h"
 #include <memory>
-
-class AnyData {
-public:
-	virtual ~AnyData() = default;
-
-	template <typename T>
-	T& Get();
-
-	template <typename T>
-	void Set(T tempData);
-};
+#include "Addons.h"
 
 
-
-
-
-template <typename T>
-class AnyContatiner : public AnyData {
-public:
-	T data;
-
-	AnyContatiner() = default;
-
-	AnyContatiner(T temp) {
-		data = temp;
-	}
-
-
-};
-
-template <typename T>
-T& AnyData::Get() {
-	auto temp = static_cast<AnyContatiner<T>*>(this); // Can be static not dynamic cause only one class is using inheritance
-	if (!temp) {
-		std::cerr << "Error: Wrong cast in AnyDataGet deafault value returned\n";
-	}
-	return temp->data;
-}
-
-
-template <typename T>
-void AnyData::Set(T tempData) {
-	auto temp = static_cast<AnyContatiner<T>*>(this); // Can be static not dynamic cause only one class is using inheritance
-	if (!temp) {
-		std::cerr << "Error: Data set uncorrectly in any data\n";
-		return;
-	}
-	temp->data = tempData;
-}
 
 class Scene {
 	protected: 

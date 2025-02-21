@@ -56,4 +56,6 @@ https://github.com/nlohmann/json
  - Scene Manager has been finisched and tested
  - UI element can be hidden
  - UI elements can be hooverable
- - Scene manager no longer uses std::any for sharded data
+ 
+ 1.06
+ - Special pointer type for storing counting and clearing references
