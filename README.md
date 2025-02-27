@@ -59,3 +59,4 @@ https://github.com/nlohmann/json
  
  1.06
  - Special pointer type for storing counting and clearing references
+ - Redesigned Grid position calculation
