@@ -61,3 +61,4 @@ https://github.com/nlohmann/json
  - Special pointer type for storing counting and clearing references
  - Redesigned Grid position calculation
  - Better camera position calculation
+ - Remove camera from main object

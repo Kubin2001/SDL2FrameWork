@@ -11,7 +11,6 @@ private:
     SDL_Renderer* renderer;
     SDL_Event event;
 
-    std::unique_ptr<Camera> camera;
     std::unique_ptr<UI> ui;
 
 

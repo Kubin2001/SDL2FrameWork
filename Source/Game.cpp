@@ -28,7 +28,6 @@ void Game::Start() {
     TextureManager::Start(renderer);
     SoundManager::Innit();
 
-    camera = std::make_unique<Camera>(0);
     ui = std::make_unique<UI>(renderer);
     LoadTextures();
     ui->CreateFont("arial40px", TextureManager::GetTextureByName("arial40px"), "Textures/Interface/Fonts/arial40px.json");
@@ -66,8 +65,6 @@ void Game::Input() {
         ui->ManageInput(event);
         Exit();
     }
-
-    const Uint8* state = SDL_GetKeyboardState(NULL);
 
     Global::inputDelay++;
 }
