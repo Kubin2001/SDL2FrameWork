@@ -14,47 +14,105 @@ SDL_Rect* Camera::GetRectangle() {
     return &rectangle;
 }
 
+void Camera::UseBorders(bool temp) {
+    this->useBorders = temp;
+}
+
+void Camera::SetBorders(int minX, int maxX, int minY, int maxY) {
+    this->useBorders = true;
+    this->minX = minY;
+    this->maxX = maxX;
+    this->minY = minY;
+    this->maxY = maxY;
+}
 
 void Camera::UpdatePosition(const SDL_Event& event, const Uint8* state) {
-    if (state[SDL_SCANCODE_D]) {
-        rectangle.x += 3 + (zoomRelativeMoveSpeed * 15);
+    if (!useBorders) {
+        if (state[SDL_SCANCODE_D]) {
+            rectangle.x += 3 + (zoomRelativeMoveSpeed * 15);
+        }
+        if (state[SDL_SCANCODE_A]) {
+            rectangle.x -= 3 + (zoomRelativeMoveSpeed * 15);
+        }
+        if (state[SDL_SCANCODE_S]) {
+            rectangle.y += 3 + (zoomRelativeMoveSpeed * 15);
+        }
+        if (state[SDL_SCANCODE_W]) {
+            rectangle.y -= 3 + (zoomRelativeMoveSpeed * 15);
+        }
+
+        if (event.type == SDL_MOUSEWHEEL) {
+            if (event.wheel.y > 0) { // Scroll Up (Zoom In)
+                if (zoom < 2.0f) {
+                    zoom += 0.01f;
+                    if (zoomRelativeMoveSpeed > 0.06f) {
+                        zoomRelativeMoveSpeed -= 0.05f;
+                    }
+                }
+                else if (zoom < 1.9f) {
+                    zoom += 0.1f;
+                    if (zoomRelativeMoveSpeed > 0.6f) {
+                        zoomRelativeMoveSpeed -= 0.5f;
+                    }
+                }
+            }
+            else if (event.wheel.y < 0) { // Scroll Down (Zoom Out)
+                if (zoom > 1.0f) {
+                    zoom -= 0.1f;
+                    zoomRelativeMoveSpeed += 0.5f;
+                }
+                else if (zoom > 0.25f) {
+                    zoom -= 0.01f;
+                    zoomRelativeMoveSpeed += 0.05f;
+                }
+            }
+        }
     }
-    if (state[SDL_SCANCODE_A]) {
-        rectangle.x -= 3 + (zoomRelativeMoveSpeed * 15);
-    }
-    if (state[SDL_SCANCODE_S]) {
-        rectangle.y += 3 + (zoomRelativeMoveSpeed * 15);
-    }
-    if (state[SDL_SCANCODE_W]) {
-        rectangle.y -= 3 + (zoomRelativeMoveSpeed * 15);
+    else
+    {
+        if (state[SDL_SCANCODE_D] && (rectangle.x + GetScaledWidth()) < maxX) {
+            rectangle.x += 3 + (zoomRelativeMoveSpeed * 15);
+            
+        }
+
+        if (state[SDL_SCANCODE_A] && rectangle.x > minX) {
+            rectangle.x -= 3 + (zoomRelativeMoveSpeed * 15);
+        }
+        if (state[SDL_SCANCODE_S] && (rectangle.y + GetScaledHeight()) < maxY) {
+            rectangle.y += 3 + (zoomRelativeMoveSpeed * 15);
+        }
+        if (state[SDL_SCANCODE_W] && rectangle.y > minY) {
+            rectangle.y -= 3 + (zoomRelativeMoveSpeed * 15);
+        }
+
+        if (event.type == SDL_MOUSEWHEEL) {
+            if (event.wheel.y > 0) { // Scroll Up (Zoom In)
+                if (zoom < 2.0f) {
+                    zoom += 0.01f;
+                    if (zoomRelativeMoveSpeed > 0.06f) {
+                        zoomRelativeMoveSpeed -= 0.05f;
+                    }
+                }
+                else if (zoom < 1.9f) {
+                    zoom += 0.1f;
+                    if (zoomRelativeMoveSpeed > 0.6f) {
+                        zoomRelativeMoveSpeed -= 0.5f;
+                    }
+                }
+            }
+            else if (event.wheel.y < 0) { // Scroll Down (Zoom Out)
+                if (zoom > 1.0f) {
+                    zoom -= 0.1f;
+                    zoomRelativeMoveSpeed += 0.5f;
+                }
+                else if (zoom > 0.25f) {
+                    zoom -= 0.01f;
+                    zoomRelativeMoveSpeed += 0.05f;
+                }
+            }
+        }
     }
 
-    if (event.type == SDL_MOUSEWHEEL) {
-        if (event.wheel.y > 0) { // Scroll Up (Zoom In)
-            if (zoom < 2.0f) {
-                zoom += 0.01f;
-                if (zoomRelativeMoveSpeed > 0.06f) {
-                    zoomRelativeMoveSpeed -= 0.05f;
-                }
-            }
-            else if (zoom < 1.9f) {
-                zoom += 0.1f;
-                if (zoomRelativeMoveSpeed > 0.6f) {
-                    zoomRelativeMoveSpeed -= 0.5f;
-                }
-            }
-        }
-        else if (event.wheel.y < 0) { // Scroll Down (Zoom Out)
-            if (zoom > 1.0f) {
-                zoom -= 0.1f;
-                zoomRelativeMoveSpeed += 0.5f;
-            }
-            else if (zoom > 0.25f) {
-                zoom -= 0.01f;
-                zoomRelativeMoveSpeed += 0.05f;
-            }
-        }
-    }
 }
 
 
@@ -82,6 +140,14 @@ Point Camera::RecoverZoomPosition(int x, int y) {
         static_cast<int>(x / zoom + rectangle.x),
         static_cast<int>(y / zoom + rectangle.y)
     };
+}
+
+int Camera::GetScaledWidth() {
+    return static_cast<int>(rectangle.w / zoom);
+}
+
+int Camera::GetScaledHeight() {
+    return static_cast<int>(rectangle.h / zoom);
 }
 
 Camera::~Camera() {

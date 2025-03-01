@@ -13,12 +13,22 @@ class Camera
 
         bool useBorders = false;
 
+        //Borders
+        int minX = 0;
+        int maxX = 0;
+        int minY = 0;
+        int maxY = 0;
+
     public:
         Camera(bool useBorders);
 
         float GetZoom();
 
         SDL_Rect* GetRectangle();
+
+        void UseBorders(bool temp);
+
+        void SetBorders(int minX, int maxX, int minY, int maxY);
 
         void UpdatePosition(const SDL_Event& event, const Uint8* state);
 
@@ -29,6 +39,10 @@ class Camera
         Point RecoverPosition(int x, int y);
 
         Point RecoverZoomPosition(int x, int y);
+
+        int GetScaledWidth();
+
+        int GetScaledHeight();
 
         ~Camera();
 };

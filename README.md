@@ -62,3 +62,5 @@ https://github.com/nlohmann/json
  - Redesigned Grid position calculation
  - Better camera position calculation
  - Remove camera from main object
+ - Camera Scalling functions
+ - Camera borders
