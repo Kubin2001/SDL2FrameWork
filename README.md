@@ -64,3 +64,4 @@ https://github.com/nlohmann/json
  - Remove camera from main object
  - Camera Scalling functions
  - Camera borders
+ - Silent checks for map pos (without writing to console)

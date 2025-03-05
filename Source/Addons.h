@@ -15,14 +15,14 @@ struct Point
 
 
 struct MapPos {
-    int rows = 0; //Du¿e Regiony
-    int column = 0;
+	int rows = 0; //Du¿e Regiony
+	int column = 0;
 
-    int rowsTile = 0; //Pole w regionie 
-    int columnTile = 0;
+	int rowsTile = 0; //Pole w regionie 
+	int columnTile = 0;
 
-    int absTileRows = 0;
-    int absTileColumn = 0;
+	int absTileRows = 0;
+	int absTileColumn = 0;
 
     MapPos();
 
@@ -47,6 +47,22 @@ struct MapPos {
 
     bool CorrectnessAbsTile();
 
+    bool CorrectnesAbsCol();
+
+    bool CorrectnesAbsRow();
+
+    //Silent checks without cout
+
+    bool CorrectnessRegionTileS();
+
+    bool CorrectnessRegionS();
+
+    bool CorrectnessAbsTileS();
+
+    bool CorrectnesAbsColS();
+
+    bool CorrectnesAbsRowS();
+
 
 
     static int minX;
@@ -63,6 +79,7 @@ struct MapPos {
 
 
 };
+
 
 double CalculateEuclidean(int x1, int x2, int y1, int y2);
 

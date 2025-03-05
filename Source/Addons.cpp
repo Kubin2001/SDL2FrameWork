@@ -7,6 +7,7 @@ Point::Point() {
 Point::Point(int x, int y) : x(x), y(y) {}
 
 
+
 MapPos::MapPos() {
 
 }
@@ -44,7 +45,7 @@ void MapPos::FedData(int mX, int mY, int tSize, int tilesPerReg, int regionsW, i
 
 void MapPos::CalcRegTile(int x, int y) {
 	int localY = (y - MapPos::minY) % MapPos::regionSize;
-	if (localY < 0) {
+	if (localY < 0) { 
 		localY += MapPos::regionSize;
 	}
 	rowsTile = localY / MapPos::tileSize;
@@ -81,9 +82,9 @@ void MapPos::CalcAbsTile(int x, int y) {
 }
 
 void MapPos::CalcAll(int x, int y) {
-	CalcRegTile(x, y);
-	CalcRegion(x, y);
-	CalcAbsTile(x, y);
+	CalcRegTile(x,y);
+	CalcRegion(x,y);
+	CalcAbsTile(x,y);
 }
 
 void MapPos::RecalculateFromAbs() {
@@ -104,7 +105,7 @@ void MapPos::RecalculateFromAbs() {
 }
 
 bool MapPos::CorrectnessRegionTile() {
-	if (rowsTile >= MapPos::tilesPerRegion) {
+	if(rowsTile >= MapPos::tilesPerRegion){
 		std::cerr << "MapPos Incorrect tile rows too big\n";
 		return false;
 	}
@@ -124,7 +125,7 @@ bool MapPos::CorrectnessRegionTile() {
 }
 
 bool MapPos::CorrectnessRegion() {
-	if (rows > MapPos::regionsCountHeight - 1) {
+	if (rows > MapPos::regionsCountHeight -1) {
 		std::cerr << "MapPos Incorrect rows too big\n";
 		return false;
 	}
@@ -132,7 +133,7 @@ bool MapPos::CorrectnessRegion() {
 		std::cerr << "MapPos Incorrect rows too small\n";
 		return false;
 	}
-	if (column > MapPos::regionsCountWidth - 1) {
+	if (column > MapPos::regionsCountWidth -1) {
 		std::cerr << "MapPos Incorrect columns too big\n";
 		return false;
 	}
@@ -165,7 +166,100 @@ bool MapPos::CorrectnessAbsTile() {
 	return true;
 }
 
+bool MapPos::CorrectnesAbsCol() {
+	int countWidth = MapPos::regionsCountWidth * MapPos::tilesPerRegion;
+	if (absTileColumn >= countWidth) {
+		std::cerr << "MapPos Incorrect abs tile columns too big\n";
+		return false;
+	}
+	if (absTileColumn < 0) {
+		std::cerr << "MapPos Incorrect abs tile columns too small\n";
+		return false;
+	}
+}
 
+bool MapPos::CorrectnesAbsRow() {
+	int countHeight = MapPos::regionsCountHeight * MapPos::tilesPerRegion;
+	if (absTileRows >= countHeight) {
+		std::cerr << "MapPos Incorrect abs tile rows too big\n";
+		return false;
+	}
+	if (absTileRows < 0) {
+		std::cerr << "MapPos Incorrect abs tile rows too small\n";
+		return false;
+	}
+}
+//Silent checks
+
+bool MapPos::CorrectnessRegionTileS() {
+	if (rowsTile >= MapPos::tilesPerRegion) {
+		return false;
+	}
+	if (rowsTile < 0) {
+		return false;
+	}
+	if (columnTile >= MapPos::tilesPerRegion) {
+		return false;
+	}
+	if (columnTile < 0) {
+		return false;
+	}
+	return true;
+}
+
+bool MapPos::CorrectnessRegionS() {
+	if (rows > MapPos::regionsCountHeight - 1) {
+		return false;
+	}
+	if (rows < 0) {
+		return false;
+	}
+	if (column > MapPos::regionsCountWidth - 1) {
+		return false;
+	}
+	if (column < 0) {
+		return false;
+	}
+	return true;
+}
+
+bool MapPos::CorrectnessAbsTileS() {
+	int countWidth = MapPos::regionsCountWidth * MapPos::tilesPerRegion;
+	int countHeight = MapPos::regionsCountHeight * MapPos::tilesPerRegion;
+	if (absTileRows >= countHeight) {
+		return false;
+	}
+	if (absTileRows < 0) {
+		return false;
+	}
+	if (absTileColumn >= countWidth) {
+		return false;
+	}
+	if (absTileColumn < 0) {
+		return false;
+	}
+	return true;
+}
+
+bool MapPos::CorrectnesAbsColS() {
+	int countWidth = MapPos::regionsCountWidth * MapPos::tilesPerRegion;
+	if (absTileColumn >= countWidth) {
+		return false;
+	}
+	if (absTileColumn < 0) {
+		return false;
+	}
+}
+
+bool MapPos::CorrectnesAbsRowS() {
+	int countHeight = MapPos::regionsCountHeight * MapPos::tilesPerRegion;
+	if (absTileRows >= countHeight) {
+		return false;
+	}
+	if (absTileRows < 0) {;
+		return false;
+	}
+}
 double CalculateEuclidean(int x1,int x2,int y1,int y2) {
     double x = std::pow(x2 - x1, 2);
     double y = std::pow(y2 - y1, 2);;
