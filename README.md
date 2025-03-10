@@ -65,3 +65,9 @@ https://github.com/nlohmann/json
  - Camera Scalling functions
  - Camera borders
  - Silent checks for map pos (without writing to console)
+ 
+ 1.07
+ - Texture manager can now load all directory and sub
+directories with a single function
+ - Texture manager now supports all files extensions
+ supported by IMG Load from sdl_image 
