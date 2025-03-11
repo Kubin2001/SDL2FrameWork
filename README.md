@@ -71,3 +71,4 @@ https://github.com/nlohmann/json
 directories with a single function
  - Texture manager now supports all files extensions
  supported by IMG Load from sdl_image 
+ - Fixed a bug that did not allow transparent buttons to be hoverable
