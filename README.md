@@ -74,3 +74,4 @@ directories with a single function
  - Fixed a bug that did not allow transparent buttons to be hoverable
  - Reference Pointer fixes
  - Buttons now can make sounds
+ - Addon function that calculates equal rectangles distibution across screen 

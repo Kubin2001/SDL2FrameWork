@@ -27,6 +27,7 @@ void Game::Start() {
     SDL_SetRenderDrawColor(renderer, Global::defaultDrawColor[0], Global::defaultDrawColor[1], Global::defaultDrawColor[2], 255); 
     TextureManager::Start(renderer);
     SoundManager::Innit();
+    SoundManager::LoadSounds("Sounds");
 
     ui = std::make_unique<UI>(renderer);
     LoadTextures();
@@ -42,12 +43,6 @@ void Game::Start() {
 
     //ui->CreateInteractionBox("box2", 200, 200, 100, 30, nullptr);
     //ui->GetInteractionBoxByName("box2")->SetButtonColor(30,30,30);
-
-    //SoundManager::LoadSounds("Sounds");
-    //ui->CreateInteractionBox("test", 100, 100, 100, 100, nullptr);
-    //ui->GetInteractionBoxByName("test")->SetButtonColor(100, 100, 100);
-    //ui->GetInteractionBoxByName("test")->SetHoverFilter(true, 100, 100, 100, 100, "coin");
-    //ui->GetInteractionBoxByName("test")->SetClickSound("coinz");
 }
 
 void Game::LoadTextures() {
