@@ -75,3 +75,7 @@ directories with a single function
  - Reference Pointer fixes
  - Buttons now can make sounds
  - Addon function that calculates equal rectangles distibution across screen 
+ 
+ 1.08
+ - Reading csv files
+ - RefPtr improvements

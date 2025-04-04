@@ -9,6 +9,8 @@
 #include "SceneManager.h"
 
 
+
+
 Game::Game() {
     window = nullptr;
     renderer = nullptr;
@@ -43,6 +45,8 @@ void Game::Start() {
 
     //ui->CreateInteractionBox("box2", 200, 200, 100, 30, nullptr);
     //ui->GetInteractionBoxByName("box2")->SetButtonColor(30,30,30);
+
+
 }
 
 void Game::LoadTextures() {

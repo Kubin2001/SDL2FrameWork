@@ -200,6 +200,15 @@ class RefPtr {
         references.push_back(&ref);
     }
 
+    void EraseRef(T** ref) {
+        for (size_t i = 0; i < references.size(); ++i) {
+            if (references[i] == ref) {
+                references.erase(references.begin() + i);
+                break;
+            }
+        }
+    }
+
     void ClearRefs() {
         for (auto& it : references) {
             *it = nullptr;
