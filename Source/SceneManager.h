@@ -6,58 +6,77 @@
 #include "UI.h"
 #include <memory>
 #include "Addons.h"
+#include <functional>
 
 
 
 class Scene {
-	protected: 
-		std::string name;
-		UI* ui = nullptr;
-		SDL_Renderer *renderer = nullptr;
+	protected:
+	UI* ui = nullptr;
+	SDL_Renderer* renderer = nullptr;
 
 	public:
-		virtual void Init(SDL_Renderer* renderer = nullptr,UI* ui = nullptr) = 0;
+	std::string name;
 
-		virtual void LogicUpdate() = 0;   
+	virtual void Init(SDL_Renderer* renderer = nullptr, UI* ui = nullptr) = 0;
 
-		virtual void FrameUpdate() = 0;  
+	virtual void LogicUpdate() = 0;
 
-		virtual void Input(SDL_Event &event) = 0;
+	virtual void FrameUpdate() = 0;
 
-		virtual void Render() = 0;
+	virtual void Input(SDL_Event& event) = 0;
 
-		virtual void Clear() = 0;
+	virtual void Render() = 0;
+
+	virtual void Clear() = 0;
 };
 
 class SceneManager {
 	private:
-		static Scene* currentScene;
+	static Scene* currentScene;
 
-		static std::unordered_map<std::string, Scene*> Scenes;
+	static std::unordered_map<std::string, Scene*> Scenes;
 
-		static std::unordered_map<std::string, std::unique_ptr<AnyData>> SharedData;
+	static std::unordered_map<std::string, std::unique_ptr<AnyData>> SharedData;
 
 	public:
-		static void AddScene(Scene *scene, const std::string &sceneName);
+	static void AddScene(Scene* scene, const std::string& sceneName);
 
-		static void SetScene(const std::string& sceneName);
+	static void AddRegisterScene(Scene* scene, const std::string& sceneName, std::function<Scene* ()> factoryFn);
 
-		static void SwitchScene(const std::string& sceneName, SDL_Renderer* renderer = nullptr, UI* ui = nullptr);
+	static void SetScene(const std::string& sceneName);
 
-		static void Clear();
+	static void SwitchScene(const std::string& sceneName, SDL_Renderer* renderer = nullptr, UI* ui = nullptr);
 
-		static Scene* GetCurrentScene();
+	static void SwitchResetScene(const std::string& sceneName, SDL_Renderer* renderer = nullptr, UI* ui = nullptr);
 
-		template <typename T>
-		static void AddData(const std::string& key, T data);
+	static void Clear();
 
-		template <typename T>
-		static T& GetData(const std::string& key);
+	static Scene* GetCurrentScene();
 
-		static void ClearData(const std::string& key);
+	template <typename T>
+	static void AddData(const std::string& key, T data);
 
-		static void ClearAllData();
+	template <typename T>
+	static T& GetData(const std::string& key);
+
+	static void ClearData(const std::string& key);
+
+	static void ClearAllData();
 };
+
+class SceneFactory {
+	private:
+	static std::unordered_map<std::string, std::function<Scene* ()>> factories;
+
+	public:
+	static void RegisterScene(const std::string& shapeName, std::function<Scene* ()> factoryFn);
+
+	static Scene* CreateScene(const std::string& shapeName);
+
+};
+
+
 
 template <typename T>
 static void SceneManager::AddData(const std::string& key, T data) {
@@ -71,7 +90,7 @@ static T& SceneManager::GetData(const std::string& key) {
 	if (SharedData.find(key) != SharedData.end()) {
 		return SharedData[key]->Get<T>();
 	}
-	else{
+	else {
 		std::cout << "Error data: " << key << " not found." << "\n";
 		return SharedData[key]->Get<T>();
 	}
