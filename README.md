@@ -79,3 +79,4 @@ directories with a single function
  1.08
  - Reading csv files
  - RefPtr improvements
+ - Dynamic Scene Management
