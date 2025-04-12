@@ -81,3 +81,6 @@ directories with a single function
  - RefPtr improvements
  - Dynamic Scene Management
  - Beter single reference removal in RefPtr
+ 
+ 1.09
+ - Shared ptr removed from framework it was just an bad and dangerous class
