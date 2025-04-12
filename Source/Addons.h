@@ -203,6 +203,7 @@ class RefPtr {
     void EraseRef(T** ref) {
         for (size_t i = 0; i < references.size(); ++i) {
             if (references[i] == ref) {
+                *references[i] = nullptr;
                 references.erase(references.begin() + i);
                 break;
             }
@@ -213,11 +214,13 @@ class RefPtr {
         for (auto& it : references) {
             *it = nullptr;
         }
+        references.clear();
     }
 
 
     ~RefPtr() {
         delete mainArgument;
+        ClearRefs();
     }
 
     T& operator*() {

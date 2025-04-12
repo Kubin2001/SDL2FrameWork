@@ -80,3 +80,4 @@ directories with a single function
  - Reading csv files
  - RefPtr improvements
  - Dynamic Scene Management
+ - Beter single reference removal in RefPtr
