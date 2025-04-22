@@ -84,3 +84,4 @@ directories with a single function
  
  1.09
  - Shared ptr removed from framework it was just an bad and dangerous class
+ - IsData function for scene manager to check if shared data with this key even exist
