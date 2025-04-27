@@ -28,6 +28,7 @@ void Game::Start() {
     Global::defaultDrawColor[2] = 255;
     SDL_SetRenderDrawColor(renderer, Global::defaultDrawColor[0], Global::defaultDrawColor[1], Global::defaultDrawColor[2], 255); 
     TexMan::Start(renderer);
+    TexMan::LoadMultiple("Textures/Examples");
     SoundMan::Innit();
     SoundMan::LoadSounds("Sounds");
 
@@ -36,70 +37,6 @@ void Game::Start() {
     ui->CreateFont("arial40px", TexMan::GetTex("arial40px"), "Textures/Interface/Fonts/arial40px.json");
     ui->CreateFont("arial20px", TexMan::GetTex("arial20px"), "Textures/Interface/Fonts/arial20px.json");
     ui->CreateFont("arial12px", TexMan::GetTex("arial12px"), "Textures/Interface/Fonts/arial12px.json");
-
-    //Example code to create a simple buttons
-    //ui->CreateInteractionBox("box1", 100, 100, 100, 30, TextureManager::GetTextureByName("buttonGrey"), ui->GetFont("arial12px"), "Example text");
-    //ui->GetInteractionBoxByName("box1")->SetFontColor(0, 0, 0);
-    //ui->GetInteractionBoxByName("box1")->SetRenderTextType(2);
-    //ui->GetInteractionBoxByName("box1")->SetHoverFilter(1, 255, 255, 255, 120);
-
-    //ui->CreateInteractionBox("box2", 200, 200, 100, 30, nullptr);
-    //ui->GetInteractionBoxByName("box2")->SetButtonColor(30,30,30);
-    TexMan::LoadMultiple("Textures/Examples");
-
-    /*ui->CreateButton("Button1", 5, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    ui->CreateInteractionBox("Button1", 110, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    ui->CreateMassageBox("Button1", 215, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);*/
-
-    //Iter1
-    /*Button * btnRef = ui->CreateButton("Button1", 5, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    InteractionBox* InteractionBoxRef = ui->CreateInteractionBox("Button1", 110, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    MassageBox* MassageBoxRef = ui->CreateMassageBox("Button1", 215, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-
-    MassageBoxRef->GetRectangle()->y = 500;*/
-
-    //Iter 2
-    /*Button* btnRef = ui->CreateButton("Button1", 5, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    ClickBox* clickBoxRef = ui->CreateClickBox("Button1", 110, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    MassageBox* MassageBoxRef = ui->CreateMassageBox("Button1", 215, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-
-    MassageBoxRef->GetRectangle()->y = 500;*/
-
-    //Iter 3
-    /*Button* btnRef = ui->CreateButton("Button1", 5, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    ClickBox* clickBoxRef = ui->CreateClickBox("Button1", 110, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    TextBox* TextBoxRef = ui->CreateTextBox("Button1", 215, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-
-    TextBoxRef->GetRectangle()->y = 500;*/
-
-    //Iter 4
-    /*Button* btnRef = ui->CreateButton("Button1", 5, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    ClickBox* clickBoxRef = ui->CreateClickBox("Button1", 110, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    TextBox* TextBoxRef = ui->CreateTextBox("Button1", 215, 30, 100, 100, TextureManager::GetTextureByName("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);*/
-
-    //Iter 5
-    Button* btnRef = ui->CreateButton("Button1", 5, 30, 100, 100, TexMan::GetTex("granite"), 
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    ClickBox* clickBoxRef = ui->CreateClickBox("Button1", 110, 30, 100, 100, TexMan::GetTex("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-    TextBox* textBoxRef = ui->CreateTextBox("Button1", 215, 30, 100, 100, TexMan::GetTex("granite"),
-        ui->GetFont("arial12px"), "Some example\ntext", 1.0f, 5, 5, 2);
-
 }
 
 void Game::LoadTextures() {
