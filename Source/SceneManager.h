@@ -63,7 +63,7 @@ class SceneMan {
 	template <typename T>
 	static T& GetData(const std::string& key);
 
-	bool IsData(const std::string& key);
+	static bool IsData(const std::string& key);
 
 	static void ClearData(const std::string& key);
 

@@ -87,3 +87,6 @@ directories with a single function
  - IsData function for scene manager to check if shared data with this key even exist
  - Shorter Naming Convertion
  - Better UI element border creation
+ 
+ 1.10
+ - More readiblility fixes

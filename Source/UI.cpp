@@ -72,14 +72,14 @@ int TemplateUIElement::GetBorderThickness() {
     return borderThickness;
 }
 
-void TemplateUIElement::SetBorderThickness(int temp) {
+void TemplateUIElement::SetBorderThickness(const int temp) {
     borderThickness = temp;
     border = true;
 }
 
-void TemplateUIElement::SetBorder(const int temp, const unsigned char R, const unsigned char G, const unsigned char B) {
+void TemplateUIElement::SetBorder(const int width, const unsigned char R, const unsigned char G, const unsigned char B) {
     border = true;
-    borderThickness = temp;
+    borderThickness = width;
     borderRGB[0] = R;
     borderRGB[1] = G;
     borderRGB[2] = B;
@@ -381,7 +381,7 @@ void UI::Render() {
 Button* UI::CreateButton(std::string name, int x, int y, int w, int h, SDL_Texture* texture, Font* font,
     std::string text, float textScale, int textStartX, int textStartY, int borderThickness) {
 
-    if (GetButtonByName(name) != nullptr) {
+    if (GetButton(name) != nullptr) {
         std::cout << "Warning name collision button with name: " << name << " already exists addition abborted\n";
         return nullptr;
     }
@@ -421,7 +421,7 @@ Button* UI::CreateButton(std::string name, int x, int y, int w, int h, SDL_Textu
 TextBox* UI::CreateTextBox(std::string name, int x, int y, int w, int h, SDL_Texture* texture, Font* font,
     std::string text, float textScale, int textStartX, int textStartY, int borderThickness) {
 
-    if (GetTextBoxByName(name) != nullptr) {
+    if (GetTextBox(name) != nullptr) {
         std::cout << "Warning name collision massage box with name: " << name << " already exists addition abborted\n";
         return nullptr;
     }
@@ -463,7 +463,7 @@ TextBox* UI::CreateTextBox(std::string name, int x, int y, int w, int h, SDL_Tex
 ClickBox* UI::CreateClickBox(std::string name, int x, int y, int w, int h, SDL_Texture* texture, Font* font,
     std::string text, float textScale, int textStartX, int textStartY, int borderThickness) {
 
-    if (GetClickBoxByName(name) != nullptr) {
+    if (GetClickBox(name) != nullptr) {
         std::cout << "Warning name collision interaction box with name: " << name << " already exists addition abborted\n";
         return nullptr;
     }
@@ -585,7 +585,7 @@ void UI::CheckClickBoxes(SDL_Event& event) {
     }
 }
 
-Button* UI::GetButtonByName(const std::string& name) {
+Button* UI::GetButton(const std::string& name) {
     auto btnFind = ButtonsMap.find(name);
     if (btnFind != ButtonsMap.end()) {
         return btnFind->second;
@@ -595,7 +595,7 @@ Button* UI::GetButtonByName(const std::string& name) {
         return nullptr;
     }
 }
-TextBox* UI::GetTextBoxByName(const std::string& name) {
+TextBox* UI::GetTextBox(const std::string& name) {
     auto msBoxFind = TextBoxesMap.find(name);
     if (msBoxFind != TextBoxesMap.end()) {
         return msBoxFind->second;
@@ -605,7 +605,7 @@ TextBox* UI::GetTextBoxByName(const std::string& name) {
         return nullptr;
     }
 }
-ClickBox* UI::GetClickBoxByName(const std::string& name) {
+ClickBox* UI::GetClickBox(const std::string& name) {
     auto interBoxFind = ClickBoxesMap.find(name);
     if (interBoxFind != ClickBoxesMap.end()) {
         return interBoxFind->second;
@@ -617,19 +617,19 @@ ClickBox* UI::GetClickBoxByName(const std::string& name) {
 }
 
 void UI::SetElementColor(const std::string& name, const unsigned char R, const unsigned char G, const unsigned char B) {
-    Button* button = GetButtonByName(name);
+    Button* button = GetButton(name);
     if (button != nullptr) {
         button->SetButtonColor(R, G, B);
         return;
     }
 
-    TextBox* textBox = GetTextBoxByName(name);
+    TextBox* textBox = GetTextBox(name);
     if (textBox != nullptr) {
         textBox->SetButtonColor(R, G, B);
         return;
     }
 
-    ClickBox* clickBox = GetClickBoxByName(name);
+    ClickBox* clickBox = GetClickBox(name);
     if (clickBox != nullptr) {
         clickBox->SetButtonColor(R, G, B);
         return;
@@ -637,19 +637,19 @@ void UI::SetElementColor(const std::string& name, const unsigned char R, const u
 }
 
 void UI::SetElementBorderColor(const std::string& name, const unsigned char R, const unsigned char G, const unsigned char B) {
-    Button* button = GetButtonByName(name);
+    Button* button = GetButton(name);
     if (button != nullptr) {
         button->SetBorderRGB(R, G, B);
         return;
     }
 
-    TextBox* textBox = GetTextBoxByName(name);
+    TextBox* textBox = GetTextBox(name);
     if (textBox != nullptr) {
         textBox->SetBorderRGB(R, G, B);
         return;
     }
 
-    ClickBox* clickBox = GetClickBoxByName(name);
+    ClickBox* clickBox = GetClickBox(name);
     if (clickBox != nullptr) {
         clickBox->SetBorderRGB(R, G, B);
         return;
@@ -657,19 +657,19 @@ void UI::SetElementBorderColor(const std::string& name, const unsigned char R, c
 }
 
 void UI::SetElementFontColor(const std::string& name, const unsigned char R, const unsigned char G, const unsigned char B) {
-    Button* button = GetButtonByName(name);
+    Button* button = GetButton(name);
     if (button != nullptr) {
         button->SetFontColor(R, G, B);
         return;
     }
 
-    TextBox* textBox = GetTextBoxByName(name);
+    TextBox* textBox = GetTextBox(name);
     if (textBox != nullptr) {
         textBox->SetFontColor(R, G, B);
         return;
     }
 
-    ClickBox* clickBox = GetClickBoxByName(name);
+    ClickBox* clickBox = GetClickBox(name);
     if (clickBox != nullptr) {
         clickBox->SetFontColor(R, G, B);
         return;

@@ -74,9 +74,9 @@ public:
 
     int GetBorderThickness();
 
-    void SetBorderThickness(int temp);
+    void SetBorderThickness(const int temp);
 
-    void SetBorder(const int temp, const unsigned char R, const unsigned char G, const unsigned char B);
+    void SetBorder(const int width, const unsigned char R, const unsigned char G, const unsigned char B);
 
     int GetTextStartX();
     void SetTextStartX(int temp);
@@ -209,9 +209,9 @@ public:
 
     void CheckClickBoxes(SDL_Event& event);
 
-    Button* GetButtonByName(const std::string& name);
-    TextBox* GetTextBoxByName(const std::string& name);
-    ClickBox* GetClickBoxByName(const std::string& name);
+    Button* GetButton(const std::string& name);
+    TextBox* GetTextBox(const std::string& name);
+    ClickBox* GetClickBox(const std::string& name);
 
     void SetElementColor(const std::string& name, const unsigned char R, unsigned char G, unsigned char B);
 
