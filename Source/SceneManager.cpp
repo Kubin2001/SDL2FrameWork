@@ -108,25 +108,6 @@ Scene* SceneMan::GetCurrentScene() {
 	return currentScene;
 }
 
-
-template <typename T>
-static void SceneMan::AddData(const std::string& key, T data) {
-	SharedData[key] = std::make_unique <AnyContatiner<T>>();
-	SharedData[key]->Set(data);
-
-}
-
-template <typename T>
-static T& SceneMan::GetData(const std::string& key) {
-	if (SharedData.find(key) != SharedData.end()) {
-		return SharedData[key]->Get<T>();
-	}
-	else {
-		std::cout << "Error data: " << key << " not found." << "\n";
-		return SharedData[key]->Get<T>();
-	}
-}
-
 bool SceneMan::IsData(const std::string& key) {
 	if (SharedData.find(key) != SharedData.end()) {
 		return true;

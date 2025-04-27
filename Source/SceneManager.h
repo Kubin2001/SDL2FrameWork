@@ -5,7 +5,6 @@
 #include <unordered_map>
 #include "UI.h"
 #include <memory>
-#include "Addons.h"
 #include <functional>
 
 
@@ -58,10 +57,22 @@ class SceneMan {
 	static Scene* GetCurrentScene();
 
 	template <typename T>
-	static void AddData(const std::string& key, T data);
+	static void AddData(const std::string& key, T data) {
+		SharedData[key] = std::make_unique <AnyContatiner<T>>();
+		SharedData[key]->Set(data);
+
+	}
 
 	template <typename T>
-	static T& GetData(const std::string& key);
+	static T& GetData(const std::string& key) {
+		if (SharedData.find(key) != SharedData.end()) {
+			return SharedData[key]->Get<T>();
+		}
+		else {
+			std::cout << "Error data: " << key << " not found." << "\n";
+			return SharedData[key]->Get<T>();
+		}
+	}
 
 	static bool IsData(const std::string& key);
 
