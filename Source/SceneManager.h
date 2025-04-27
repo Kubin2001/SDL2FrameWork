@@ -31,7 +31,7 @@ class Scene {
 	virtual void Clear() = 0;
 };
 
-class SceneManager {
+class SceneMan {
 	private:
 	static Scene* currentScene;
 
@@ -40,6 +40,9 @@ class SceneManager {
 	static std::unordered_map<std::string, std::unique_ptr<AnyData>> SharedData;
 
 	public:
+
+	static void Print();
+
 	static void AddScene(Scene* scene, const std::string& sceneName);
 
 	static void AddRegisterScene(Scene* scene, const std::string& sceneName, std::function<Scene* ()> factoryFn);
