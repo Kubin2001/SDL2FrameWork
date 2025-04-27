@@ -90,3 +90,4 @@ directories with a single function
  
  1.10
  - More readiblility fixes
+ - Sound Manager can adjust sound volume
