@@ -168,6 +168,45 @@ class Button : public TemplateUIElement {
 
 };
 
+class ClickBoxList {
+    private:
+        UI* ui;
+
+        ClickBox* mainElement = nullptr;
+
+        std::vector<ClickBox*> Elements;
+
+        std::vector<std::string> names;
+
+        bool initalized = false;
+
+        bool expanded = false;
+
+    public:
+
+        void Innit(UI* ui, ClickBox* main, std::vector<std::string> names, int w, int h, int R, int G, int B, std::string* texts, short space = 0);
+
+        bool IsInitialized();
+
+        bool IsExpanded();
+
+        ClickBox* Get(short index);
+
+        ClickBox* Main();
+
+        std::vector<ClickBox*>& GetAll();
+
+        void Expand();
+
+        void Hide();
+
+        void Clear();
+
+        ClickBox* operator [](const size_t index) {
+            return Elements[index];
+        }
+};
+
 // To propelly start the UI you need to pleace manage input function in event loop and render in rendering loop
 class UI{
 private:

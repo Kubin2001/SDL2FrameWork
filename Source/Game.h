@@ -13,7 +13,6 @@ private:
 
     std::unique_ptr<UI> ui;
 
-
 public:
     Game();
 

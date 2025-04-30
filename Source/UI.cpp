@@ -338,7 +338,74 @@ std::string& ClickBox::GetClickSound() {
     return clickSound;
 }
 //InteractionBox
+//ClickBox List
+void ClickBoxList::Innit(UI* ui, ClickBox* main, std::vector<std::string> names, int w, int h, int R, int G, int B, std::string *texts, short space) {
+	this->ui = ui;
+	mainElement = main;
+	Elements.reserve(names.size());
+	int y = mainElement->GetRectangle()->y + (mainElement->GetRectangle()->h + space);
+	for (size_t i = 0; i < names.size(); i++){
+		Elements.emplace_back(
+			ui->CreateClickBox(names[i], mainElement->GetRectangle()->x, y, 
+				w, h, nullptr, ui->GetFont("arial12px"), texts[i])
+		);
+		Elements[i]->SetButtonColor(R,G,B);
+        Elements.back()->Hide();
+		y += (h + space);
+	}
+	initalized = true;
+}
 
+bool ClickBoxList::IsInitialized() {
+	return initalized;
+}
+
+bool ClickBoxList::IsExpanded() {
+	return expanded;
+}
+
+ClickBox* ClickBoxList::Get(short index) {
+	return Elements[index];
+}
+
+
+ClickBox* ClickBoxList::Main() {
+	return mainElement;
+}
+
+std::vector<ClickBox*>& ClickBoxList::GetAll() {
+	return Elements;
+}
+
+void ClickBoxList::Expand() {
+	for (const auto& it : Elements) {
+		it->Show();
+	}
+	expanded = true;
+}
+
+void ClickBoxList::Hide() {
+	for (const auto& it : Elements) {
+		it->Hide();
+	}
+	expanded = false;
+}
+
+void ClickBoxList::Clear() {
+	for (const auto& it : Elements) {
+		ui->DeleteClickBox(it->GetName());
+	}
+	Elements.clear();
+    if (mainElement != nullptr) {
+        ui->DeleteClickBox(mainElement->GetName());
+    }
+	mainElement = nullptr;
+	names.clear();
+	initalized = false;
+	expanded = false;
+}
+
+//ClickBox List
 UI::UI(SDL_Renderer* renderer) {
     fontManager = new FontManager();
     this->renderer = renderer;
