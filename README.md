@@ -92,3 +92,4 @@ directories with a single function
  - More readiblility fixes
  - Sound Manager can adjust sound volume
  - New List type ui element ClickBoxList
+ - List Improvements

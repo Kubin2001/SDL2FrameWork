@@ -220,6 +220,8 @@ private:
     std::unordered_map<std::string, TextBox*> TextBoxesMap;
     std::unordered_map<std::string, ClickBox*> ClickBoxesMap;
 
+    std::vector<ClickBoxList*> ListReferences;
+
     FontManager* fontManager;
 
     Point lastMousePos;
@@ -239,6 +241,9 @@ public:
     ClickBox* CreateClickBox(std::string name, int x, int y, int w, int h, SDL_Texture* texture, Font* font = nullptr,
         std::string text = "", float textScale = 1.0f, int textStartX = 0, int textStartY = 0, int borderThickness = 0);
 
+    void AddListRef(ClickBoxList *ref);
+
+    void RemoveListRef(ClickBoxList* ref);
 
     void CheckHover();
 
@@ -291,7 +296,7 @@ public:
         unsigned char fR, unsigned char fG, unsigned char fB, unsigned char bR, unsigned char bG, unsigned char bB, Point size,
         const std::string& outputPath);
 
-    void ClearAllButtons();
+    void ClearAllButtons(bool clearLists = true);
 
 
     ~UI();

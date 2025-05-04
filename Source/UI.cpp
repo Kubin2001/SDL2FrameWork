@@ -353,6 +353,7 @@ void ClickBoxList::Innit(UI* ui, ClickBox* main, std::vector<std::string> names,
         Elements.back()->Hide();
 		y += (h + space);
 	}
+    ui->AddListRef(this);
 	initalized = true;
 }
 
@@ -401,6 +402,7 @@ void ClickBoxList::Clear() {
     }
 	mainElement = nullptr;
 	names.clear();
+    ui->RemoveListRef(this);
 	initalized = false;
 	expanded = false;
 }
@@ -568,6 +570,13 @@ ClickBox* UI::CreateClickBox(std::string name, int x, int y, int w, int h, SDL_T
     return ClickBoxes.back();
 }
 
+void UI::AddListRef(ClickBoxList* ref) {
+    ListReferences.emplace_back(ref);
+}
+
+void UI::RemoveListRef(ClickBoxList* ref) {
+    std::erase(ListReferences, ref);
+}
 
 
 void UI::CheckHover() {
@@ -829,7 +838,15 @@ void UI::ScanFont(const std::string& texturePath, const std::string& charactersD
     fontManager->ScanFont(texturePath, charactersDataPath, fR, fG, fB, bR, bG, bB, size.x, size.y);
 }
 
-void UI::ClearAllButtons() {
+void UI::ClearAllButtons(bool clearLists) {
+    if (clearLists) {
+        for (auto& it : ListReferences) {
+            it->Clear();
+        }
+
+        ListReferences.clear();
+    }
+
     for (auto& it : Buttons) {
         delete it;
     }

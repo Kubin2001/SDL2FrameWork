@@ -31,7 +31,7 @@ void Game::Start() {
     TexMan::LoadMultiple("Textures/Examples");
     SoundMan::Innit();
     SoundMan::LoadSounds("Sounds");
-    SoundMan::Print();
+
     ui = std::make_unique<UI>(renderer);
     LoadTextures();
     ui->CreateFont("arial40px", TexMan::GetTex("arial40px"), "Textures/Interface/Fonts/arial40px.json");
