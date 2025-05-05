@@ -93,3 +93,4 @@ directories with a single function
  - Sound Manager can adjust sound volume
  - New List type ui element ClickBoxList
  - List Improvements
+ - Quick Shortcuts functions for vector removal

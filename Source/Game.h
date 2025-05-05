@@ -20,8 +20,6 @@ public:
 
     void Start();
 
-    void LoadTextures();
-
     void LogicUpdate();
 
     void FrameUpdate();
