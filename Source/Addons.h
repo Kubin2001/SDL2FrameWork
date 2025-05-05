@@ -6,10 +6,14 @@
 
 struct Point
 {
-	int x = 0;
-	int y = 0;
-	Point();
-	Point(int x, int y);
+    int x = 0;
+    int y = 0;
+    Point();
+    Point(int x, int y);
+
+    bool operator==(const Point& other) const {
+        return x == other.x && y == other.y;
+    }
 };
 
 
