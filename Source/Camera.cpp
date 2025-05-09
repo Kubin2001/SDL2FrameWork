@@ -26,7 +26,16 @@ void Camera::SetBorders(int minX, int maxX, int minY, int maxY) {
     this->maxY = maxY;
 }
 
-void Camera::UpdatePosition(const SDL_Event& event, const Uint8* state) {
+void Camera::SetZoomValue(const float val) {
+    zoomValue = val;
+}
+
+void Camera::SetMaxMinZoom(const float min, const float max) {
+    zoomMin = min;
+    zoomMax = max;
+}
+
+void Camera::UpdatePosition(const Uint8* state) {
     if (!useBorders) {
         if (state[SDL_SCANCODE_D]) {
             rectangle.x += 3 + (zoomRelativeMoveSpeed * 15);
@@ -40,41 +49,11 @@ void Camera::UpdatePosition(const SDL_Event& event, const Uint8* state) {
         if (state[SDL_SCANCODE_W]) {
             rectangle.y -= 3 + (zoomRelativeMoveSpeed * 15);
         }
-
-        if (event.type == SDL_MOUSEWHEEL) {
-            if (event.wheel.y > 0) { // Scroll Up (Zoom In)
-                if (zoom < 2.0f) {
-                    zoom += 0.01f;
-                    if (zoomRelativeMoveSpeed > 0.06f) {
-                        zoomRelativeMoveSpeed -= 0.05f;
-                    }
-                }
-                else if (zoom < 1.9f) {
-                    zoom += 0.1f;
-                    if (zoomRelativeMoveSpeed > 0.6f) {
-                        zoomRelativeMoveSpeed -= 0.5f;
-                    }
-                }
-            }
-            else if (event.wheel.y < 0) { // Scroll Down (Zoom Out)
-                if (zoom > 1.0f) {
-                    zoom -= 0.1f;
-                    zoomRelativeMoveSpeed += 0.5f;
-                }
-                else if (zoom > 0.25f) {
-                    zoom -= 0.01f;
-                    zoomRelativeMoveSpeed += 0.05f;
-                }
-            }
-        }
     }
-    else
-    {
+    else{
         if (state[SDL_SCANCODE_D] && (rectangle.x + GetScaledWidth()) < maxX) {
             rectangle.x += 3 + (zoomRelativeMoveSpeed * 15);
-            
         }
-
         if (state[SDL_SCANCODE_A] && rectangle.x > minX) {
             rectangle.x -= 3 + (zoomRelativeMoveSpeed * 15);
         }
@@ -85,34 +64,28 @@ void Camera::UpdatePosition(const SDL_Event& event, const Uint8* state) {
             rectangle.y -= 3 + (zoomRelativeMoveSpeed * 15);
         }
 
-        if (event.type == SDL_MOUSEWHEEL) {
-            if (event.wheel.y > 0) { // Scroll Up (Zoom In)
-                if (zoom < 2.0f) {
-                    zoom += 0.01f;
-                    if (zoomRelativeMoveSpeed > 0.06f) {
-                        zoomRelativeMoveSpeed -= 0.05f;
-                    }
-                }
-                else if (zoom < 1.9f) {
-                    zoom += 0.1f;
-                    if (zoomRelativeMoveSpeed > 0.6f) {
-                        zoomRelativeMoveSpeed -= 0.5f;
-                    }
-                }
-            }
-            else if (event.wheel.y < 0) { // Scroll Down (Zoom Out)
-                if (zoom > 1.0f) {
-                    zoom -= 0.1f;
-                    zoomRelativeMoveSpeed += 0.5f;
-                }
-                else if (zoom > 0.25f) {
-                    zoom -= 0.01f;
-                    zoomRelativeMoveSpeed += 0.05f;
+
+    }
+
+}
+
+void Camera::UpdateZoom(SDL_Event& event) {
+    if (event.type == SDL_MOUSEWHEEL) {
+        if (event.wheel.y > 0) { // Scroll Up (Zoom In)
+            if (zoom < zoomMin) {
+                zoom += zoomValue;
+                if (zoomRelativeMoveSpeed > 0.06f) {
+                    zoomRelativeMoveSpeed -= 0.05f;
                 }
             }
         }
+        else if (event.wheel.y < 0) { // Scroll Down (Zoom Out)
+            if (zoom > zoomMax) {
+                zoom -= zoomValue;;
+                zoomRelativeMoveSpeed += 0.05f;
+            }
+        }
     }
-
 }
 
 
