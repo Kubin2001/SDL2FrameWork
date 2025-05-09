@@ -94,3 +94,4 @@ directories with a single function
  - New List type ui element ClickBoxList
  - List Improvements
  - Quick Shortcuts functions for vector removal
+ - Camera Improvements
