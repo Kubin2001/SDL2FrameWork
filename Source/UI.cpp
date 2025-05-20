@@ -106,7 +106,7 @@ void TemplateUIElement::SetTransparent(bool temp) {
     buttonTransparent = temp;
 }
 
-void TemplateUIElement::SetButtonColor(const unsigned char R, const unsigned char G, const unsigned char B) {
+void TemplateUIElement::SetColor(const unsigned char R, const unsigned char G, const unsigned char B) {
     if (buttonTransparent) {
         buttonTransparent = false;
     }
@@ -349,7 +349,7 @@ void ClickBoxList::Innit(UI* ui, ClickBox* main, std::vector<std::string> names,
 			ui->CreateClickBox(names[i], mainElement->GetRectangle()->x, y, 
 				w, h, nullptr, ui->GetFont("arial12px"), texts[i])
 		);
-		Elements[i]->SetButtonColor(R,G,B);
+		Elements[i]->SetColor(R,G,B);
         Elements.back()->Hide();
 		y += (h + space);
 	}
@@ -695,19 +695,19 @@ ClickBox* UI::GetClickBox(const std::string& name) {
 void UI::SetElementColor(const std::string& name, const unsigned char R, const unsigned char G, const unsigned char B) {
     Button* button = GetButton(name);
     if (button != nullptr) {
-        button->SetButtonColor(R, G, B);
+        button->SetColor(R, G, B);
         return;
     }
 
     TextBox* textBox = GetTextBox(name);
     if (textBox != nullptr) {
-        textBox->SetButtonColor(R, G, B);
+        textBox->SetColor(R, G, B);
         return;
     }
 
     ClickBox* clickBox = GetClickBox(name);
     if (clickBox != nullptr) {
-        clickBox->SetButtonColor(R, G, B);
+        clickBox->SetColor(R, G, B);
         return;
     }
 }
@@ -838,7 +838,7 @@ void UI::ScanFont(const std::string& texturePath, const std::string& charactersD
     fontManager->ScanFont(texturePath, charactersDataPath, fR, fG, fB, bR, bG, bB, size.x, size.y);
 }
 
-void UI::ClearAllButtons(bool clearLists) {
+void UI::ClearAll(bool clearLists) {
     if (clearLists) {
         for (auto& it : ListReferences) {
             it->Clear();
@@ -867,6 +867,6 @@ void UI::ClearAllButtons(bool clearLists) {
 
 
 UI::~UI() {
-    ClearAllButtons();
+    ClearAll();
     delete fontManager;
 }

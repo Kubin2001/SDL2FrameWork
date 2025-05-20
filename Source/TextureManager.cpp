@@ -125,6 +125,95 @@ Point TexMan::GetTextureSize(const std::string& name) {
     return p;
 }
 
+SDL_Surface* CopyVectorToSurface(std::vector<std::vector<SDL_Color>> &copySurfData) {
+    int width = copySurfData.size();
+    int height = copySurfData[0].size();
+
+    SDL_Surface* newSurface = SDL_CreateRGBSurfaceWithFormat(
+        0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
+
+    if (newSurface) {
+        SDL_LockSurface(newSurface);
+        for (int x = 0; x < width; ++x) {
+            for (int y = 0; y < height; ++y) {
+                if (x < copySurfData.size() && y < copySurfData[x].size()) {
+                    SDL_Color color = copySurfData[x][y];
+                    Uint8* p = (Uint8*)newSurface->pixels + y * newSurface->pitch + x * 4;
+                    p[0] = color.r;
+                    p[1] = color.g;
+                    p[2] = color.b;
+                    p[3] = color.a;
+                }
+            }
+        }
+        SDL_UnlockSurface(newSurface);
+        copySurfData.clear();
+        return newSurface;
+    }
+    std::cout << "SDL_Surface* CopyVectorToSurface cannot create surface aborted\n";
+    return nullptr;
+}
+
+void TexMan::SplitTexture(const char* path, const std::vector<std::string> &names,
+    const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a) {
+    SDL_Surface* surface = IMG_Load(path);
+    SDL_Surface* converted = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_RGBA32, 0);
+    if (!converted) {
+        std::cout << "Failed to convert surface format\n";
+        SDL_FreeSurface(surface);
+        return;
+    }
+
+    std::vector<std::vector<SDL_Color>> copySurfData;
+    std::vector<SDL_Surface*> surfaces;
+
+    for (int x = 0; x < converted->w; ++x) {
+        copySurfData.emplace_back();
+        for (int y = 0; y < converted->h; ++y) {
+            Uint8* p = (Uint8*)converted->pixels + y * converted->pitch + x * 4; // 4 bajty na piksel
+
+            SDL_Color col(p[0], p[1], p[2], p[3]);
+
+            if (col.r == r && col.g == g && col.b == b && col.a == a) {
+                bool fullColumnColored = true;
+                for (int ty = 0; ty < converted->h; ++ty) { // Checking if all column has seperator color
+                    Uint8* pIn = (Uint8*)converted->pixels + ty * converted->pitch + x * 4;
+                    SDL_Color inCol(pIn[0], pIn[1], pIn[2], pIn[3]);
+                    if (inCol.r == r && inCol.g == g && inCol.b == b && inCol.a == a) {
+                        continue;
+                    }
+                    else {
+                        fullColumnColored = false;
+                        break;
+                    }
+                }
+                if (fullColumnColored) {
+                    surfaces.push_back(CopyVectorToSurface(copySurfData));
+                }
+                break;  
+            }
+            else {
+                copySurfData.back().emplace_back(col.r, col.g, col.b, col.a);
+            }
+        }
+    }
+
+    SDL_FreeSurface(converted);
+
+    if (!copySurfData.empty()) {
+        surfaces.push_back(CopyVectorToSurface(copySurfData));
+    }
+
+    int index = 0;
+    for (auto& elem : surfaces) {
+        SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, elem);
+        SDL_FreeSurface(elem);
+        Textures[names[index]] = tex;
+        index++;
+
+    }
+}
+
 void TexMan::Clear() {
     for (auto& pair : Textures) {
         SDL_DestroyTexture(pair.second);

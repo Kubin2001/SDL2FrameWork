@@ -95,3 +95,5 @@ directories with a single function
  - List Improvements
  - Quick Shortcuts functions for vector removal
  - Camera Improvements
+ - Better UI names
+ - Texture Manager function to split texture

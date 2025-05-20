@@ -90,7 +90,7 @@ public:
 
     void SetFont(Font* font);
 
-    void SetButtonColor(const unsigned char R, const unsigned char G, const unsigned char B);
+    void SetColor(const unsigned char R, const unsigned char G, const unsigned char B);
 
     void SetBorderRGB(const unsigned char R, const unsigned char G, const unsigned char B);
 
@@ -296,7 +296,7 @@ public:
         unsigned char fR, unsigned char fG, unsigned char fB, unsigned char bR, unsigned char bG, unsigned char bB, Point size,
         const std::string& outputPath);
 
-    void ClearAllButtons(bool clearLists = true);
+    void ClearAll(bool clearLists = true);
 
 
     ~UI();
