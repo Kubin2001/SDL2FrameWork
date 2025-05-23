@@ -97,3 +97,6 @@ directories with a single function
  - Camera Improvements
  - Better UI names
  - Texture Manager function to split texture
+ 
+ 1.11
+ - Added basic animator class

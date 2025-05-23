@@ -3,6 +3,7 @@
 #include <math.h>
 #include <SDL.h>
 #include <vector>
+#include "GlobalVariables.h"
 
 struct Point
 {

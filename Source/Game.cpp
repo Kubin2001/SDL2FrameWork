@@ -7,6 +7,7 @@
 #include "TextureManager.h"
 #include "SoundManager.h"
 #include "SceneManager.h"
+#include "Animator.h"
 
 
 

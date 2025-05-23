@@ -1,5 +1,4 @@
 #include "Addons.h"
-#include "GlobalVariables.h"
 
 Point::Point() {
 
