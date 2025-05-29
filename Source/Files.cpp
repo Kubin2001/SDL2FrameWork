@@ -19,18 +19,18 @@ std::vector<std::string> ReadCsvLine(const std::string& line, const char separat
 }
 
 std::vector<std::vector<std::string>> ReadCsv(const std::string& path, const char separator) {
-    std::vector<std::vector<std::string>> csvVec;
-    std::ifstream csvFile(path);
-    std::string line;
-    if (csvFile.is_open()) {
-        while (std::getline(csvFile, line)) {
-            csvVec.emplace_back(ReadCsvLine(line, separator));
-        }
-        csvFile.close();
-    }
-    else {
-        std::cout << "error reading file\n";
-    }
+	std::vector<std::vector<std::string>> csvVec;
+	std::ifstream csvFile(path);
+	std::string line;
+	if (csvFile.is_open()) {
+		while (std::getline(csvFile, line)) {
+			csvVec.emplace_back(ReadCsvLine(line, separator));
+		}
+		csvFile.close();
+	}
+	else {
+		std::cout << "error reading file\n";
+	}
 
-    return csvVec;
+	return csvVec;
 }

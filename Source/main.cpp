@@ -5,30 +5,30 @@
 
 int main(int argv, char* argc[])
 {
-    //srand(time(0));
-    srand(0);
+	//srand(time(0));
+	srand(0);
 
-    Game* game = new Game();
+	Game* game = new Game();
 
-    game->Start();
-    Global::TickTimer = SDL_GetTicks();
-    Global::LogicTimeEnd = Global::TickTimer + Global::frameDelay;
-    Global::RenderingTimeEnd = Global::TickTimer + 16;
-    while (Global::status)
-    {
-        SDL_Delay(1);
-        Global::TickTimer = SDL_GetTicks();
-        if (Global::TickTimer > Global::LogicTimeEnd) {
-            Global::LogicTimeEnd = Global::TickTimer + Global::frameDelay;
-            game->LogicUpdate();
-        }
+	game->Start();
+	Global::TickTimer = SDL_GetTicks();
+	Global::LogicTimeEnd = Global::TickTimer + Global::frameDelay;
+	Global::RenderingTimeEnd = Global::TickTimer + 16;
+	while (Global::status)
+	{
+		SDL_Delay(1);
+		Global::TickTimer = SDL_GetTicks();
+		if (Global::TickTimer > Global::LogicTimeEnd) {
+			Global::LogicTimeEnd = Global::TickTimer + Global::frameDelay;
+			game->LogicUpdate();
+		}
 
-        if (Global::TickTimer > Global::RenderingTimeEnd) {
-            Global::RenderingTimeEnd = Global::TickTimer + 16;
-            game->FrameUpdate();
-        }
-    }
+		if (Global::TickTimer > Global::RenderingTimeEnd) {
+			Global::RenderingTimeEnd = Global::TickTimer + 16;
+			game->FrameUpdate();
+		}
+	}
 
-    delete game;
-    return 0;
+	delete game;
+	return 0;
 }

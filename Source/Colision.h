@@ -24,27 +24,27 @@ bool CircleMouseCollision(const SDL_Rect circleRect, const SDL_Rect rect);
 
 class CollisonProjectile
 {
-    private:
-    int xMov = 0;
+	private:
+	int xMov = 0;
 
-    int yMov = 0;
+	int yMov = 0;
 
-    int timer = 0;
+	int timer = 0;
 
-    SDL_Rect rectangle;
+	SDL_Rect rectangle;
 
-    public:
-    CollisonProjectile(int x, int y, int w, int h, int xMov, int yMov);
+	public:
+	CollisonProjectile(int x, int y, int w, int h, int xMov, int yMov);
 
-    SDL_Rect* GetRectangle();
+	SDL_Rect* GetRectangle();
 
-    void setSpeedX(int temp);
+	void setSpeedX(int temp);
 
-    void setSpeedY(int temp);
+	void setSpeedY(int temp);
 
-    int GetTimer();
+	int GetTimer();
 
-    void SetTimer(int temp);
+	void SetTimer(int temp);
 
-    void MoveProjectlile();
+	void MoveProjectlile();
 };

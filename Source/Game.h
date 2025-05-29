@@ -7,29 +7,29 @@
 
 class Game {
 private:
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    SDL_Event event;
+	SDL_Window* window;
+	SDL_Renderer* renderer;
+	SDL_Event event;
 
-    std::unique_ptr<UI> ui;
+	std::unique_ptr<UI> ui;
 
-    ClickBoxList list;
+	ClickBoxList list;
 
 public:
-    Game();
+	Game();
 
-    void Start();
+	void Start();
 
-    void LogicUpdate();
+	void LogicUpdate();
 
-    void FrameUpdate();
+	void FrameUpdate();
 
-    void Input();
+	void Input();
 
-    void Exit();
+	void Exit();
 
-    void Render();
+	void Render();
 
-    ~Game();
+	~Game();
 
 };

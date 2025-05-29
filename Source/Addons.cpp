@@ -261,9 +261,9 @@ bool MapPos::CorrectnesAbsRowS() {
 	}
 }
 double CalculateEuclidean(int x1,int x2,int y1,int y2) {
-    double x = std::pow(x2 - x1, 2);
-    double y = std::pow(y2 - y1, 2);;
-    return std::sqrt(x+y);
+	double x = std::pow(x2 - x1, 2);
+	double y = std::pow(y2 - y1, 2);;
+	return std::sqrt(x+y);
 }
 
 Point GetRectangleCenter(const SDL_Rect rect) {

@@ -8,9 +8,9 @@
 
 class SoundMan
 {
-    private:
-        static std::unordered_map<std::string, Mix_Chunk*> Sounds;
-    public:
+	private:
+		static std::unordered_map<std::string, Mix_Chunk*> Sounds;
+	public:
 		static void Innit();
 
 		static void Print();
