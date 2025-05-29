@@ -20,7 +20,7 @@ void Camera::UseBorders(bool temp) {
 
 void Camera::SetBorders(int minX, int maxX, int minY, int maxY) {
     this->useBorders = true;
-    this->minX = minY;
+    this->minX = minX;
     this->maxX = maxX;
     this->minY = minY;
     this->maxY = maxY;
@@ -88,27 +88,26 @@ void Camera::UpdateZoom(SDL_Event& event) {
     }
 }
 
-
-
-SDL_Rect Camera::CalcScreenPosition(const SDL_Rect& rect) {
+SDL_Rect Camera::TransformFlat(const SDL_Rect& rect) {
     SDL_Rect r{ 0,0,rect.w,rect.h };
     r.x = rect.x - rectangle.x;
     r.y = rect.y - rectangle.y;
     return r;
 }
 
-SDL_Rect Camera::CalcScreenPositionWithZoom(const SDL_Rect& rect) {
+
+SDL_Rect Camera::Transform(const SDL_Rect& rect) {
     SDL_Rect r{0, 0, static_cast<int>(rect.w * zoom) + 1,static_cast<int>(rect.h * zoom) + 1}; // +1 to prevent white lines
     r.x = static_cast<int>((rect.x - rectangle.x) * zoom);
     r.y = static_cast<int>((rect.y - rectangle.y) * zoom);
     return r;
 }
 
-Point Camera::RecoverPosition(int x, int y) {
+Point Camera::UntransformFlat(int x, int y) {
     return { x + rectangle.x,y + rectangle.y };
 }
 
-Point Camera::RecoverZoomPosition(int x, int y) {
+Point Camera::Untransform(int x, int y) {
     return {
         static_cast<int>(x / zoom + rectangle.x),
         static_cast<int>(y / zoom + rectangle.y)
@@ -123,6 +122,4 @@ int Camera::GetScaledHeight() {
     return static_cast<int>(rectangle.h / zoom);
 }
 
-Camera::~Camera() {
-}
 

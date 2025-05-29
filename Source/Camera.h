@@ -3,10 +3,9 @@
 #include <SDL.h>
 #include "Addons.h"
 
-class Camera
-{
+class Camera {
     private:
-        SDL_Rect rectangle{0,0,Global::windowWidth,Global::windowHeight};
+        SDL_Rect rectangle{ 0,0,Global::windowWidth,Global::windowHeight };
         float zoom = 1.0f; // Base zoom =1 (or no zoom)
         float zoomRelativeMoveSpeed = 1.0f;
         float zoomValue = 0.05f; // Since 0.05f does not give white lines between objects
@@ -40,17 +39,15 @@ class Camera
 
         void UpdateZoom(SDL_Event& event);
 
-        SDL_Rect CalcScreenPosition(const SDL_Rect& rect);
+        SDL_Rect TransformFlat(const SDL_Rect& rect);
 
-        SDL_Rect CalcScreenPositionWithZoom(const SDL_Rect& rect);
+        SDL_Rect Transform(const SDL_Rect& rect);
 
-        Point RecoverPosition(int x, int y);
+        Point UntransformFlat(int x, int y);
 
-        Point RecoverZoomPosition(int x, int y);
+        Point Untransform(int x, int y);
 
         int GetScaledWidth();
 
         int GetScaledHeight();
-
-        ~Camera();
 };

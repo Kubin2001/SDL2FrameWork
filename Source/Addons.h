@@ -95,8 +95,6 @@ unsigned int RectanglePointDistance(const SDL_Rect rect, const Point point);
 unsigned int PointsDistance(const Point point, const Point point2);
 
 
-
-
 class AnyData {
     public:
     virtual ~AnyData() = default;
