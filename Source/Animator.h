@@ -23,6 +23,8 @@ class Animator {
 
 		static SDL_Rect* Get(const std::string& key);
 
+		static Animation* GetAnim(const std::string& key);
+
 		static void Reset(const std::string& key);
 
 		static bool ClearSingle(const std::string& key);

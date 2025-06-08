@@ -72,8 +72,17 @@ SDL_Rect* Animator::Get(const std::string& key) {
 			}
 			return &anim.clips[currentFrame / anim.frameDelay];
 	}
+}
 
-
+Animation* Animator::GetAnim(const std::string& key) {
+	auto mapAnim = Animations.find(key);
+	if (mapAnim == Animations.end()) {
+		std::cout << "This animation does not exist returned nullptr\n";
+		return nullptr;
+	}
+	else {
+		return &mapAnim->second;
+	}
 }
 
 void Animator::Reset(const std::string& key) {
