@@ -208,3 +208,5 @@ void EraseSwitchDelArrIndex(std::vector<T>& vec, const size_t i) {
 	vec[i] = vec.back();
 	vec.pop_back();
 }
+
+///////////////////////////////////////////////////////////

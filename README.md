@@ -101,3 +101,4 @@ directories with a single function
  1.11
  - Added basic animator class
  - Better Camera Functions Name
+ - 3 more animation types

@@ -8,6 +8,7 @@
 #include "SoundManager.h"
 #include "SceneManager.h"
 #include "Animator.h"
+#include "Addons.h"
 
 
 
@@ -38,6 +39,12 @@ void Game::Start() {
 	ui->CreateFont("arial40px", TexMan::GetTex("arial40px"), "Textures/Interface/Fonts/arial40px.json");
 	ui->CreateFont("arial20px", TexMan::GetTex("arial20px"), "Textures/Interface/Fonts/arial20px.json");
 	ui->CreateFont("arial12px", TexMan::GetTex("arial12px"), "Textures/Interface/Fonts/arial12px.json");
+
+	std::vector<int> vec = { 321,321,321,321,123,213 };
+
+	EraseSwitch(vec, 321);
+
+	Animator::CreateNew("Test", 6, 30, 30, 40, 2);
 }
 
 
@@ -58,6 +65,10 @@ void Game::Input() {
 	while (SDL_PollEvent(&event)) {
 		ui->ManageInput(event);
 		Exit();
+
+		if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_a) {
+			Animator::Reset("Test");
+		}
 	}
 
 	Global::inputDelay++;
@@ -67,6 +78,8 @@ void Game::Input() {
 
 void Game::Render() {
 	SDL_RenderClear(renderer);
+	SDL_Rect rect{ 100,100,100,100 };
+	SDL_RenderCopy(renderer, TexMan::GetTex("AnimTest"), Animator::Get("Test"), &rect);
 	ui->Render();
 	SDL_RenderPresent(renderer);
 }
