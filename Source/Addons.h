@@ -147,66 +147,71 @@ void AnyData::Set(T tempData) {
 
 void ScaleRectanglesToScreen(std::vector<SDL_Rect>& vec, int count, int desiredY, int width, int height, int xSpace, bool clearVec = true);
 
+// They work you can uncomment them if you wish but for some reason they sometimes break Intelli Sense
+
+
+
+////Use only if you dont care about elements order
+//template <typename T>
+//void EraseSwitch(std::vector<T> &vec, const T &elem) {
+//	for (size_t i = 0; i < vec.size(); i++) {
+//		if (elem == vec[i]) {
+//			vec[i] = vec.back();
+//			vec.pop_back();
+//			return;
+//		}
+//	}
+//}
+//
+////Use only if you dont care about elements order
+//template <typename T>
+//void EraseSwitchDel(std::vector<T> &vec, const T &elem) {
+//	for (size_t i = 0; i < vec.size(); i++) {
+//		if (elem == vec[i]) {
+//			delete vec[i];
+//			vec[i] = vec.back();
+//			vec.pop_back();
+//			return;
+//		}
+//	}
+//}
+//
+////Use only if you dont care about elements order
+//template <typename T>
+//void EraseSwitchDelArr(std::vector<T> &vec, const T &elem) {
+//	for (size_t i = 0; i < vec.size(); i++) {
+//		if (elem == vec[i]) {
+//			delete[] vec[i];
+//			vec[i] = vec.back();
+//			vec.pop_back();
+//			return;
+//		}
+//	}
+//}
+
+
 
 //Use only if you dont care about elements order
-template <typename T>
-void EraseSwitch(std::vector<T> &vec, const T &elem) {
-	for (size_t i = 0; i < vec.size(); i++) {
-		if (elem == vec[i]) {
-			vec[i] = vec.back();
-			vec.pop_back();
-			return;
-		}
-	}
-}
-
-//Use only if you dont care about elements order
-template <typename T>
-void EraseSwitchDel(std::vector<T> &vec, const T &elem) {
-	for (size_t i = 0; i < vec.size(); i++) {
-		if (elem == vec[i]) {
-			delete vec[i];
-			vec[i] = vec.back();
-			vec.pop_back();
-			return;
-		}
-	}
-}
-
-//Use only if you dont care about elements order
-template <typename T>
-void EraseSwitchDelArr(std::vector<T> &vec, const T &elem) {
-	for (size_t i = 0; i < vec.size(); i++) {
-		if (elem == vec[i]) {
-			delete[] vec[i];
-			vec[i] = vec.back();
-			vec.pop_back();
-			return;
-		}
-	}
-}
-
-//Use only if you dont care about elements order
-template <typename T>
-void EraseSwitchIndex(std::vector<T>& vec, const size_t i) {
-	vec[i] = vec.back();
-	vec.pop_back();
-}
-
-//Use only if you dont care about elements order
-template <typename T>
-void EraseSwitchDelIndex(std::vector<T>& vec, const size_t i) {
-	delete vec[i];
-	vec[i] = vec.back();
-	vec.pop_back();
-}
-
-//Use only if you dont care about elements order
-template <typename T>
-void EraseSwitchDelArrIndex(std::vector<T>& vec, const size_t i) {
-	delete[] vec[i];
-	vec[i] = vec.back();
-	vec.pop_back();
-}
+//template <typename T>
+//void EraseSwitchIndex(std::vector<T>& vec, const size_t i) {
+//	vec[i] = vec.back();
+//	vec.pop_back();
+//}
+//
+////Use only if you dont care about elements order
+//template <typename T>
+//void EraseSwitchDelIndex(std::vector<T>& vec, const size_t i) {
+//	delete vec[i];
+//	vec[i] = vec.back();
+//	vec.pop_back();
+//}
+//
+////Use only if you dont care about elements order
+//template <typename T>
+//void EraseSwitchDelArrIndex(std::vector<T>& vec, const size_t i) {
+//	delete[] vec[i];
+//	vec[i] = vec.back();
+//	vec.pop_back();
+//}
 
 ///////////////////////////////////////////////////////////
