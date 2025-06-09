@@ -10,7 +10,11 @@ class Animation {
 		unsigned int firstFrame = 0;
 		unsigned int lastFrame = 0;
 		unsigned short frameDelay = 20;
-		int type = 0; // 0 looped 1 singular 2 looped Back 3 singular Back
+		int type = 0; // 0 looped 1 singular 2 looped Back 3 singular Back 
+		//4 back-up looped 5 up-back looped
+		//6 back - up singular 8 up - back singullar
+		//7 up - back singular 9 back - up singullar
+
 };
 
 class Animator {
@@ -28,6 +32,8 @@ class Animator {
 		static void Reset(const std::string& key);
 
 		static bool ClearSingle(const std::string& key);
+
+		static bool CloneFrame(const std::string& key, const unsigned int frame, const unsigned int index, const unsigned int count);
 
 		static void ClearAll();
 };

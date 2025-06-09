@@ -40,11 +40,8 @@ void Game::Start() {
 	ui->CreateFont("arial20px", TexMan::GetTex("arial20px"), "Textures/Interface/Fonts/arial20px.json");
 	ui->CreateFont("arial12px", TexMan::GetTex("arial12px"), "Textures/Interface/Fonts/arial12px.json");
 
-	std::vector<int> vec = { 321,321,321,321,123,213 };
+	Animator::CreateNew("Test", 6, 30, 30, 40, 7);
 
-	EraseSwitch(vec, 321);
-
-	Animator::CreateNew("Test", 6, 30, 30, 40, 2);
 }
 
 
