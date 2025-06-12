@@ -104,3 +104,4 @@ directories with a single function
  - 3 more animation types
  - Another 2 more animation types
  - You can now duplicate animation frames
+ - Animations are now dynamicly allocated

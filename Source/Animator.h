@@ -19,7 +19,7 @@ class Animation {
 
 class Animator {
 	private:
-		static std::unordered_map<std::string, Animation> Animations;
+		static std::unordered_map<std::string, Animation*> Animations;
 
 	public:
 		static void CreateNew(const std::string& name, const int clipsAmount, const short frameWidth,
@@ -34,6 +34,8 @@ class Animator {
 		static bool ClearSingle(const std::string& key);
 
 		static bool CloneFrame(const std::string& key, const unsigned int frame, const unsigned int index, const unsigned int count);
+
+		static bool DeleteAnimation(const std::string& key);
 
 		static void ClearAll();
 };
