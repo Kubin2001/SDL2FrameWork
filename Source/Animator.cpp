@@ -14,6 +14,7 @@ void Animator::CreateNew(const std::string& name, const int clipsAmount, const s
 	}
 
 	Animation* anim = new Animation();
+	anim->name = name;
 	anim->firstFrame = Global::frameCounter;
 	anim->frameDelay = frameDelay;
 	anim->lastFrame = frameDelay * clipsAmount;

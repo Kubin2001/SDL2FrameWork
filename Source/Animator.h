@@ -6,6 +6,7 @@
 
 class Animation {
 	public:
+		std::string name = "";
 		std::vector<SDL_Rect> clips;
 		unsigned int firstFrame = 0;
 		unsigned int lastFrame = 0;

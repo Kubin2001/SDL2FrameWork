@@ -71,14 +71,20 @@ void TexMan::LoadSingle(const char* filePath, const std::string& name) {
 
 
 void TexMan::LoadMultiple(const std::string& directory){
-	for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(directory)) {
-		if (IsFormatSupported(entry.path().extension().string())) {
-			std::string pathString = entry.path().string();
-			const char* path = pathString.c_str();
-			std::string name = entry.path().stem().string();
-			LoadSingle(path, name);
+	try {
+		for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(directory)) {
+			if (IsFormatSupported(entry.path().extension().string())) {
+				std::string pathString = entry.path().string();
+				const char* path = pathString.c_str();
+				std::string name = entry.path().stem().string();
+				LoadSingle(path, name);
+			}
 		}
 	}
+	catch (const std::filesystem::filesystem_error& e) {
+		std::cerr << "Error loading directory: " << directory << " " << e.what() << "\n";
+	}
+
 }
 
 void TexMan::DeepLoad(const std::string& directory) {
