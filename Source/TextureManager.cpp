@@ -82,7 +82,7 @@ void TexMan::LoadMultiple(const std::string& directory){
 		}
 	}
 	catch (const std::filesystem::filesystem_error& e) {
-		std::cerr << "Error loading directory: " << directory << " " << e.what() << "\n";
+		std::cerr << "TexMan::LoadMultiple Error loading directory: " << directory << " " << e.what() << "\n";
 	}
 
 }

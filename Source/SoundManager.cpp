@@ -39,14 +39,20 @@ void SoundMan::LoadSound(const char* filePath, const std::string& name) {
 }
 
 void SoundMan::LoadSounds(const std::string& directory) {
-	for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(directory)) {
-		if (entry.path().extension() == ".wav") {
-			std::string pathString = entry.path().string();
-			const char* path = pathString.c_str();
-			std::string name = entry.path().stem().string();
-			LoadSound(path, name);
+	try {
+		for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(directory)) {
+			if (entry.path().extension() == ".wav") {
+				std::string pathString = entry.path().string();
+				const char* path = pathString.c_str();
+				std::string name = entry.path().stem().string();
+				LoadSound(path, name);
+			}
 		}
 	}
+	catch (std::exception& e) {
+		std::cerr << " SoundMan::LoadSounds Error loading directory: " << directory << " " << e.what() << "\n";
+	}
+
 }
 
 void SoundMan::PlaySound(const std::string& name) {
