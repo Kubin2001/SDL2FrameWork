@@ -411,23 +411,11 @@ void ClickBoxList::Clear() {
 UI::UI(SDL_Renderer* renderer) {
 	fontManager = new FontManager();
 	this->renderer = renderer;
-	if (TexMan::IsWorking()) {
-		LoadTextures();
-	}
-	else{
-		std::cout << "Error Texture Manager is unicialized ui may not work propelly or even crash\n";
-	}
-
 	lastMousePos.x = -10000000;
 	lastMousePos.y = -10000000;
 }
 
 
-void UI::LoadTextures() {
-	TexMan::LoadMultiple("Textures/Interface");
-	TexMan::LoadMultiple("Textures/Interface/Fonts");
-	TexMan::LoadMultiple("Textures/Interface/Others");
-}
 
 void UI::Render() {
 	for (const auto &it: Buttons)

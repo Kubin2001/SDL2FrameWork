@@ -211,6 +211,7 @@ class ClickBoxList {
 class UI{
 private:
 	SDL_Renderer* renderer;
+	LocalTexMan* localTexMan = nullptr;
 
 	std::vector<Button*> Buttons;
 	std::vector<TextBox*> TextBoxes;
@@ -229,8 +230,6 @@ private:
 public:
 
 	UI(SDL_Renderer* renderer);
-
-	void LoadTextures();
 
 	Button* CreateButton(std::string name, int x, int y, int w, int h, SDL_Texture* texture, Font* font = nullptr,
 		std::string text = "", float textScale = 1.0f, int textStartX = 0, int textStartY = 0, int borderThickness = 0);

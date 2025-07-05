@@ -9,6 +9,7 @@
 #include "SceneManager.h"
 #include "Animator.h"
 #include "Addons.h"
+#include "Files.h"
 
 
 
@@ -23,14 +24,14 @@ void Game::Start() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Global::windowWidth, Global::windowHeight, SDL_WINDOW_SHOWN);
 	//renderer = SDL_CreateRenderer(window, -1, 0);
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	Global::defaultDrawColor[0] = 255;
 	Global::defaultDrawColor[1] = 255;
 	Global::defaultDrawColor[2] = 255;
 	SDL_SetRenderDrawColor(renderer, Global::defaultDrawColor[0], Global::defaultDrawColor[1], Global::defaultDrawColor[2], 255); 
 	TexMan::Start(renderer);
-	TexMan::LoadMultiple("Textures/Examples");
+	TexMan::DeepLoad("Textures");
 	SoundMan::Innit();
 	SoundMan::LoadSounds("Sounds");
 
@@ -40,7 +41,11 @@ void Game::Start() {
 	ui->CreateFont("arial20px", TexMan::GetTex("arial20px"), "Textures/Interface/Fonts/arial20px.json");
 	ui->CreateFont("arial12px", TexMan::GetTex("arial12px"), "Textures/Interface/Fonts/arial12px.json");
 
-	Animator::CreateNew("Test", 6, 30, 30, 40, 7);
+	FileExplorer fe;
+
+	fe.Open("");
+
+	//Animator::CreateNew("Test", 6, 30, 30, 40, 7);
 
 }
 
@@ -62,10 +67,6 @@ void Game::Input() {
 	while (SDL_PollEvent(&event)) {
 		ui->ManageInput(event);
 		Exit();
-
-		if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_a) {
-			Animator::Reset("Test");
-		}
 	}
 
 	Global::inputDelay++;
@@ -75,8 +76,7 @@ void Game::Input() {
 
 void Game::Render() {
 	SDL_RenderClear(renderer);
-	SDL_Rect rect{ 100,100,100,100 };
-	SDL_RenderCopy(renderer, TexMan::GetTex("AnimTest"), Animator::Get("Test"), &rect);
+
 	ui->Render();
 	SDL_RenderPresent(renderer);
 }

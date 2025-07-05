@@ -34,3 +34,30 @@ std::vector<std::vector<std::string>> ReadCsv(const std::string& path, const cha
 
 	return csvVec;
 }
+
+bool FileExplorer::Open(const std::string& path) {
+	window = SDL_CreateWindow("FileWindow", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+		200, 300, SDL_WINDOW_SHOWN | SDL_WINDOW_ALWAYS_ON_TOP);
+	renderer = SDL_CreateRenderer(window, -1, 0);
+	SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
+
+	std::filesystem::path current = std::filesystem::current_path();
+	std::cout << "CurrentPath: " << current << '\n';
+
+	texMan.Start(renderer);
+	texMan.LoadMultiple("Textures/FileExplorer");
+	ui = new UI(renderer);
+	Button *btn = ui->CreateButton("Test", 20, 20, 20, 20, texMan.GetTex("FeFolderIcon"), nullptr);
+	//btn->SetBorder(2, 180, 180, 180);
+
+	btn = ui->CreateButton("Test2", 20, 50, 20, 20, texMan.GetTex("FeFileIcon"), nullptr);
+	//btn->SetBorder(2, 180, 180, 180);
+
+	btn = ui->CreateButton("Test3", 20, 80, 20, 20, texMan.GetTex("FeFolderIcon"), nullptr);
+	//btn->SetBorder(2, 180, 180, 180);
+
+	SDL_RenderClear(renderer);
+	ui->Render();
+	SDL_RenderPresent(renderer);
+	return true;
+}

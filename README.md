@@ -106,3 +106,9 @@ directories with a single function
  - You can now duplicate animation frames
  - Animations are now dynamicly allocated
  - Load Multiple Textures no longer crashes when path is incorrect
+ - Load Multiple Sounds no longer crashes when path is incorrect
+ 
+ 
+ 1.12
+ - Switched basic texture load function to DeepLoad
+ - UI no longer loads its textures and it is now capable of using any texture manager
