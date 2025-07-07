@@ -14,17 +14,31 @@ class FileExplorer {
 	private:
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;
+		SDL_Event event;
 
 		std::string startPath = "";
+		std::string currentPath = "";
+		std::string retPath = "";
+		bool finished = false;
 
 		UI* ui = nullptr;
 
 		LocalTexMan texMan;
 
+		std::vector<ClickBox*> folderElements;
+
+		ClickBox* selectedElement = nullptr;
+
+		std::string Maintain();
+
+		void Input();
+
+		void Update();
+
 	public:
 		FileExplorer() = default;
 
-		bool Open(const std::string& path);
+		std::string Open(const std::string& path);
 
 
 

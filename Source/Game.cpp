@@ -43,7 +43,7 @@ void Game::Start() {
 
 	FileExplorer fe;
 
-	fe.Open("");
+	std::cout<<"Explorer returned: " << fe.Open("") << "\n";
 
 	//Animator::CreateNew("Test", 6, 30, 30, 40, 7);
 
