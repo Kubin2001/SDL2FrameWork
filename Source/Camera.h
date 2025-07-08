@@ -11,6 +11,7 @@ class Camera {
 		float zoomValue = 0.05f; // Since 0.05f does not give white lines between objects
 		float zoomMin = 1.0f;
 		float zoomMax = 0.25f;
+		int moveSpeed = 3;
 
 		bool useBorders = false;
 
@@ -50,4 +51,8 @@ class Camera {
 		int GetScaledWidth();
 
 		int GetScaledHeight();
+
+		void SetMoveSpeed(const int temp);
+
+		int& GetMoveSpeed();
 };
