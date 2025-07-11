@@ -16,10 +16,10 @@ class FileExplorer {
 		SDL_Renderer* renderer = nullptr;
 		SDL_Event event;
 
-		std::string startPath = "";
 		std::string currentPath = "";
 		std::string retPath = "";
 		bool finished = false;
+		int absoluteY = 0;
 
 		UI* ui = nullptr;
 
@@ -34,6 +34,8 @@ class FileExplorer {
 		void Input();
 
 		void Update();
+
+		void CreateElement(int x, int y, const std::string& dirPath, const std::string& dirName, const std::string& texture);
 
 	public:
 		FileExplorer() = default;

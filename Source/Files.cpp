@@ -35,6 +35,12 @@ std::vector<std::vector<std::string>> ReadCsv(const std::string& path, const cha
 	return csvVec;
 }
 
+void FileExplorer::CreateElement(int x, int y, const std::string& dirPath, const std::string& dirName, const std::string& texture) {
+	folderElements.emplace_back(ui->CreateClickBox(dirPath, x, y, 20, 20,
+		texMan.GetTex(texture), ui->GetFont("arial12px")
+		, dirName, 1.0f, 25, 5));
+}
+
 std::string FileExplorer::Open(const std::string& path) {
 	window = SDL_CreateWindow("FileWindow", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		300, 300, SDL_WINDOW_SHOWN | SDL_WINDOW_ALWAYS_ON_TOP);
@@ -42,7 +48,6 @@ std::string FileExplorer::Open(const std::string& path) {
 	SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
 
 	std::filesystem::path current = std::filesystem::current_path();
-	std::cout << "CurrentPath: " << current << '\n';
 	currentPath = current.string();
 	texMan.Start(renderer);
 	texMan.LoadMultiple("Textures/FileExplorer");
@@ -54,22 +59,16 @@ std::string FileExplorer::Open(const std::string& path) {
 
 	for (auto &dir: std::filesystem::directory_iterator(currentPath)) {
 		if (dir.is_directory()) {
-			folderElements.emplace_back(ui->CreateClickBox(dir.path().string(), x, y, 20, 20, 
-				texMan.GetTex("FeFolderIcon"),ui->GetFont("arial12px")
-				, "     " + dir.path().filename().string()));
+			CreateElement(x, y, dir.path().string(), dir.path().filename().string(), "FeFolderIcon");
 		}
 		else {
-			folderElements.emplace_back(ui->CreateClickBox(dir.path().string(), x, y, 20, 20,
-				texMan.GetTex("FeFileIcon"), ui->GetFont("arial12px")
-				, "     " + dir.path().filename().string()));
+			CreateElement(x, y, dir.path().string(), dir.path().filename().string(), "FeFileIcon");
 		}
 		folderElements.back()->SetHoverFilter(1, 255, 255, 255, 70);
 		y += 35;	
 	}
 
-	ui->CreateClickBox("X", 10, 10, 30, 20, nullptr, ui->GetFont("arial12px"), "X");
-	ui->GetClickBox("X")->SetColor(60, 60, 60);
-	ui->CreateClickBox("ArrowLeft", 10, 40, 30, 20, nullptr, ui->GetFont("arial12px"), "<-");
+	ui->CreateClickBox("ArrowLeft", 10, 10, 30, 20, nullptr, ui->GetFont("arial12px"), "<-");
 	ui->GetClickBox("ArrowLeft")->SetColor(60, 60, 60);
 	return Maintain();
 }
@@ -95,15 +94,25 @@ std::string FileExplorer::Maintain() {
 void FileExplorer::Input() {
 	while (SDL_PollEvent(&event)) {
 		if (event.type == SDL_MOUSEWHEEL) {
-			if (event.wheel.y > 0) {
+			if (event.wheel.y > 0 && absoluteY < 50) { // up
+				absoluteY += 10;
 				for (auto &it:folderElements) {
 					it->GetRectangle()->y+=10;
 				}
 			}
-			else if (event.wheel.y < 0) {
+			else if (event.wheel.y < 0 && std::abs(absoluteY) < (folderElements.back()->GetRectangle()->y +
+				folderElements.back()->GetRectangle()->h)) { //down
+				absoluteY -= 10;
 				for (auto& it : folderElements) {
 					it->GetRectangle()->y-=10;
+					
 				}
+			}
+		}
+		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE) {
+			Uint32 myWindowID = SDL_GetWindowID(window);
+			if (event.window.windowID == myWindowID) {
+				finished = true;
 			}
 		}
 		ui->ManageInput(event);
@@ -112,9 +121,6 @@ void FileExplorer::Input() {
 	if (ui->GetClickBox("ArrowLeft")->ConsumeStatus()) {
 		currentPath = std::filesystem::path(currentPath).parent_path().string();
 		Update();
-	}
-	if (ui->GetClickBox("X")->ConsumeStatus()) {
-		finished = true;
 	}
 
 	for (auto& elem : folderElements) {
@@ -152,14 +158,10 @@ void FileExplorer::Update() {
 
 	for (auto& dir : std::filesystem::directory_iterator(currentPath)) {
 		if (dir.is_directory()) {
-			folderElements.emplace_back(ui->CreateClickBox(dir.path().string(), x, y, 20, 20,
-				texMan.GetTex("FeFolderIcon"), ui->GetFont("arial12px")
-				, "     " + dir.path().filename().string()));
+			CreateElement(x, y, dir.path().string(), dir.path().filename().string(), "FeFolderIcon");
 		}
 		else {
-			folderElements.emplace_back(ui->CreateClickBox(dir.path().string(), x, y, 20, 20,
-				texMan.GetTex("FeFileIcon"), ui->GetFont("arial12px")
-				, "     " + dir.path().filename().string()));
+			CreateElement(x, y, dir.path().string(), dir.path().filename().string(), "FeFileIcon");
 		}
 		folderElements.back()->SetHoverFilter(1, 255, 255, 255,70);
 		y += 35;

@@ -113,3 +113,4 @@ directories with a single function
  - Switched basic texture load function to DeepLoad
  - UI no longer loads its textures and it is now capable of using any texture manager
  - File Explorer Prototype
+ - Better file explorer
