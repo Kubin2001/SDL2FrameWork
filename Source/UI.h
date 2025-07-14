@@ -11,10 +11,10 @@
 
 class TemplateUIElement {
 protected:
-	SDL_Texture* texture;
-	SDL_Rect rectangle;
-	std::string name;
-	std::string text;
+	SDL_Texture* texture = nullptr;
+	SDL_Rect rectangle = {0,0,0,0};
+	std::string name = "";
+	std::string text = "";
 	float textScale = 1.0f;
 	int interLine = 20;
 
@@ -170,13 +170,13 @@ class Button : public TemplateUIElement {
 
 class ClickBoxList {
 	private:
-		UI* ui;
+		UI* ui = nullptr;
 
 		ClickBox* mainElement = nullptr;
 
-		std::vector<ClickBox*> Elements;
+		std::vector<ClickBox*> Elements = {};
 
-		std::vector<std::string> names;
+		std::vector<std::string> names = {};
 
 		bool initalized = false;
 

@@ -132,8 +132,8 @@ Point TexMan::GetTextureSize(const std::string& name) {
 }
 
 SDL_Surface* CopyVectorToSurface(std::vector<std::vector<SDL_Color>> &copySurfData) {
-	int width = copySurfData.size();
-	int height = copySurfData[0].size();
+	int width = (int)copySurfData.size();
+	int height = (int)copySurfData[0].size();
 
 	SDL_Surface* newSurface = SDL_CreateRGBSurfaceWithFormat(
 		0, width, height, 32, SDL_PIXELFORMAT_RGBA32);

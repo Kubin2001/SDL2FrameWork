@@ -52,10 +52,10 @@ class TexMan {
 
 class LocalTexMan {
 	private:
-		std::unordered_map<std::string, SDL_Texture*> Textures;
-		std::vector<std::string> SupportedFormats;
-		SDL_Renderer* renderer;
-		bool isInnit;
+		std::unordered_map<std::string, SDL_Texture*> Textures = {};
+		std::vector<std::string> SupportedFormats = {};
+		SDL_Renderer* renderer = nullptr;
+		bool isInnit = false;
 
 	public:
 		bool Start(SDL_Renderer* ren);

@@ -176,6 +176,7 @@ bool MapPos::CorrectnesAbsCol() {
 		std::cerr << "MapPos Incorrect abs tile columns too small\n";
 		return false;
 	}
+	return true;
 }
 
 bool MapPos::CorrectnesAbsRow() {
@@ -188,6 +189,7 @@ bool MapPos::CorrectnesAbsRow() {
 		std::cerr << "MapPos Incorrect abs tile rows too small\n";
 		return false;
 	}
+	return true;
 }
 //Silent checks
 
@@ -249,6 +251,7 @@ bool MapPos::CorrectnesAbsColS() {
 	if (absTileColumn < 0) {
 		return false;
 	}
+	return true;
 }
 
 bool MapPos::CorrectnesAbsRowS() {
@@ -259,6 +262,7 @@ bool MapPos::CorrectnesAbsRowS() {
 	if (absTileRows < 0) {;
 		return false;
 	}
+	return true;
 }
 double CalculateEuclidean(int x1,int x2,int y1,int y2) {
 	double x = std::pow(x2 - x1, 2);
@@ -268,8 +272,8 @@ double CalculateEuclidean(int x1,int x2,int y1,int y2) {
 
 Point GetRectangleCenter(const SDL_Rect rect) {
 	Point point;
-	point.x = rect.x + (rect.w * 0.5);
-	point.y = rect.y + (rect.h * 0.5);
+	point.x = rect.x + (int)(rect.w * 0.5);
+	point.y = rect.y + (int)(rect.h * 0.5);
 	return point;
 
 }

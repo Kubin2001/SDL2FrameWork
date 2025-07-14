@@ -96,16 +96,15 @@ int AdvancedCollision(const SDL_Rect rect, const SDL_Rect rect2, const int deept
 
 
 bool CircleMouseCollision(const SDL_Rect circleRect, const SDL_Rect rect) {
-	int centerCirleX = circleRect.x + (circleRect.w * 0.5);
-	int centerCirleY = circleRect.y + (circleRect.h * 0.5);
-	float radius = circleRect.h * 0.5;
+	int centerCirleX = circleRect.x + (int)(circleRect.w * 0.5);
+	int centerCirleY = circleRect.y + (int)(circleRect.h * 0.5);
+	float radius = (float)(circleRect.h * 0.5);
 
-	float distance = CalculateEuclidean(centerCirleX, rect.x, centerCirleY, rect.y);
+	float distance = (float)CalculateEuclidean(centerCirleX, rect.x, centerCirleY, rect.y);
 	if (distance <= radius) {
 		return true;
 	}
-	else
-	{
+	else{
 		return false;
 	}
 }

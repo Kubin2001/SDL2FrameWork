@@ -14,7 +14,7 @@ class FileExplorer {
 	private:
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;
-		SDL_Event event;
+		SDL_Event event = {};
 
 		std::string currentPath = "";
 		std::string retPath = "";

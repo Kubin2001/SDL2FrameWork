@@ -7,9 +7,9 @@
 
 class Game {
 private:
-	SDL_Window* window;
-	SDL_Renderer* renderer;
-	SDL_Event event;
+	SDL_Window* window = nullptr;
+	SDL_Renderer* renderer = nullptr;
+	SDL_Event event = {};
 
 	std::unique_ptr<UI> ui;
 
