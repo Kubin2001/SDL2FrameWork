@@ -147,6 +147,8 @@ void AnyData::Set(T tempData) {
 
 void ScaleRectanglesToScreen(std::vector<SDL_Rect>& vec, int count, int desiredY, int width, int height, int xSpace, bool clearVec = true);
 
+std::vector<std::string> SplitString(const std::string &str, const char seperator, const bool keepSep = false);
+
 // They work you can uncomment them if you wish but for some reason they sometimes break Intelli Sense
 
 

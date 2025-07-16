@@ -318,3 +318,27 @@ void ScaleRectanglesToScreen(std::vector<SDL_Rect>& vec, int count, int desiredY
 		}
 	}
 }
+
+std::vector<std::string> SplitString(const std::string& str, const char seperator, const bool keepSep) {
+	std::vector<std::string> outVec;
+
+	std::string tempStr = "";
+	for (int i = 0; i < str.length(); i++) {
+		if (str[i] == seperator) {
+			if (keepSep) {
+				tempStr += str[i];
+				outVec.emplace_back(tempStr);
+				tempStr = "";
+				continue;
+			}
+			outVec.emplace_back(tempStr);
+			tempStr = "";
+			continue;
+		}
+		tempStr += str[i];
+	}
+	if(tempStr != "") {
+		outVec.emplace_back(tempStr);
+	}
+	return outVec;
+}
