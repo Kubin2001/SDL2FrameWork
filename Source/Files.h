@@ -26,6 +26,7 @@ class FileExplorer {
 		LocalTexMan texMan;
 
 		std::vector<ClickBox*> folderElements;
+		std::vector<ClickBox*> folderElementsNames;
 
 		ClickBox* selectedElement = nullptr;
 

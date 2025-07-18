@@ -39,6 +39,12 @@ void FileExplorer::CreateElement(int x, int y, const std::string& dirPath, const
 	folderElements.emplace_back(ui->CreateClickBox(dirPath, x, y, 20, 20,
 		texMan.GetTex(texture), ui->GetFont("arial12px")
 		, dirName, 1.0f, 25, 5));
+	folderElements.back()->SetHoverFilter(1, 255, 255, 255, 70);
+
+	folderElementsNames.emplace_back(ui->CreateClickBox("Name" + dirPath, x + 20, y, 300 - 75, 20,
+		nullptr, ui->GetFont("arial12px")
+		, "", 1.0f, 25, 5));
+	folderElementsNames.back()->SetHoverFilter(1, 255, 255, 255, 70);
 }
 
 std::string FileExplorer::Open(const std::string& path) {
@@ -64,7 +70,6 @@ std::string FileExplorer::Open(const std::string& path) {
 		else {
 			CreateElement(x, y, dir.path().string(), dir.path().filename().string(), "FeFileIcon");
 		}
-		folderElements.back()->SetHoverFilter(1, 255, 255, 255, 70);
 		y += 35;	
 	}
 
@@ -123,27 +128,24 @@ void FileExplorer::Input() {
 		Update();
 	}
 
-	for (auto& elem : folderElements) {
-		if (elem->ConsumeStatus()) {
-			if (selectedElement != nullptr) {
-				if (elem == selectedElement) { 
-					std::string temp = std::filesystem::path(elem->GetName()).string();
-					if (std::filesystem::is_directory(temp)) {
-						currentPath = temp;
-						retPath = temp;
-						Update();
-					}
-					else {
-						retPath = temp;
-					}
-					break;
-				}
-			}
-			else {
-				selectedElement = elem;
+	for (size_t i = 0; i < folderElements.size(); ++i) {
+		if (folderElements[i]->ConsumeStatus() || folderElementsNames[i]->ConsumeStatus()) {
+			if (selectedElement == nullptr) {
+				selectedElement = folderElements[i];
 				break;
 			}
-
+			if (folderElements[i] == selectedElement) {
+				std::string temp = std::filesystem::path(folderElements[i]->GetName()).string();
+				if (std::filesystem::is_directory(temp)) {
+					currentPath = temp;
+					retPath = temp;
+					Update();
+				}
+				else {
+					retPath = temp;
+				}
+				break;
+			}
 		}
 	}
 }
@@ -152,7 +154,11 @@ void FileExplorer::Update() {
 	for (auto& elem : folderElements) {
 		ui->DeleteClickBox(elem->GetName());
 	}
+	for (auto& elem : folderElementsNames) {
+		ui->DeleteClickBox(elem->GetName());
+	}
 	folderElements.clear();
+	folderElementsNames.clear();
 	int x = 50;
 	int y = 10;
 
