@@ -1,0 +1,6 @@
+Libs/
+x64/
+
+SDL2FrameWork.vcxproj
+SDL2FrameWork.vcxproj.filters
+SDL2FrameWork.vcxproj.user
