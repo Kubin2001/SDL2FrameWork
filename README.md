@@ -114,3 +114,4 @@ directories with a single function
  - UI no longer loads its textures and it is now capable of using any texture manager
  - File Explorer Prototype
  - Better file explorer
+ - New UI Element PopUpBox
