@@ -44,6 +44,7 @@ void FileExplorer::CreateElement(int x, int y, const std::string& dirPath, const
 	folderElementsNames.emplace_back(ui->CreateClickBox("Name" + dirPath, x + 20, y, 300 - 75, 20,
 		nullptr, ui->GetFont("arial12px")
 		, "", 1.0f, 25, 5));
+	folderElementsNames.back()->SetColor(255, 255, 255, 0);
 	folderElementsNames.back()->SetHoverFilter(1, 255, 255, 255, 70);
 }
 
@@ -84,6 +85,7 @@ std::string FileExplorer::Maintain() {
 		//Update();
 		SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
 		SDL_RenderClear(renderer);
+		ui->FrameUpdate();
 		ui->Render();
 		SDL_RenderPresent(renderer);
 		SDL_Delay(32);
