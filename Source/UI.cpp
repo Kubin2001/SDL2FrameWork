@@ -203,10 +203,6 @@ void TemplateUIElement::RenderText(SDL_Renderer* renderer) {
 			case 3:
 				font->RenderTextFromRight(renderer, text, rectangle, textScale, interLine, textStartX, textStartY);
 				break;
-			case 4:
-				predefinedSize = font->CalculatePredefinedSize(text, interLine);
-				font->RenderTextCenterPred(renderer, text, rectangle,predefinedSize, textScale, interLine, textStartX, textStartY);
-				break;
 			default: // Standardowa opcja
 				font->RenderText(renderer, text, rectangle, textScale, interLine, textStartX, textStartY);
 				break;

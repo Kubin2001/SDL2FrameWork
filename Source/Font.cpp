@@ -57,15 +57,6 @@ bool Font::LoadTextInfo(const std::string& jsonPath) {
 				}
 			}
 		}
-
-		/*for (size_t i = 0; i < sourceRectangles.size(); i++)
-		{
-			std::cout << i << " : X: " << sourceRectangles[i].x << " Y: " << sourceRectangles[i].y
-				<< " W: " << sourceRectangles[i].w << " H: " << sourceRectangles[i].h << "\n";
-
-		}*/
-		//std::cout << "InterLine: " << standardInterLine << "\n";
-
 	}
 	else
 	{
@@ -100,15 +91,11 @@ void Font::RenderText(SDL_Renderer* renderer, const std::string &text, SDL_Rect 
 }
 
 void Font::RenderTextCenter(SDL_Renderer* renderer, const std::string& text, SDL_Rect &btnRect, float scale, int interline, int textStartX, int textStartY) {
-	Point textSizes = CalculatePredefinedSize(text,interline);
+	Point textSizes = CalculatePredefinedSize(text,interline,scale);
 
-	textSizes.x *= 0.5;
-	textSizes.y *= 0.5;
 	Point center = GetRectangleCenter(btnRect);
-	rectangle.x = center.x + textStartX - textSizes.x;
-	rectangle.y = center.y + textStartY - textSizes.y;
-	rectangle.w = 0;
-	rectangle.h = 0;
+	rectangle.x = center.x - (textSizes.x * 0.5) + textStartX;
+	rectangle.y = center.y - (textSizes.y * 0.5) + textStartY;
 	int temp = rectangle.x;
 
 
@@ -187,24 +174,29 @@ void Font::RenderTextCenterPred(SDL_Renderer* renderer, const std::string& text,
 }
 
 
-Point Font::CalculatePredefinedSize(const std::string& fontText, int interline) {
-	Point predSize(0, 0 + interline);
-	bool firstLine = true;
-	for (int i = 0; i < fontText.length(); i++){
-		if (fontText[i] < sourceRectangles.size()) {
-			if (fontText[i] != '\n') {
-				if (firstLine) {
-					predSize.x += sourceRectangles[fontText[i]].w;
-				}
-
+Point Font::CalculatePredefinedSize(const std::string& fontText, const int interline, const float scale) {
+	Point predSize(0, interline); // x width y height
+	
+	int longest = 0;
+	int currentLenght = 0;
+	for (int i = 0; i < fontText.length(); ++i) {
+		if (fontText[i] > sourceRectangles.size()) { continue; }
+		if (fontText[i] == '\n') {
+			predSize.y += interline;
+			if (currentLenght > longest) {
+				longest = currentLenght;
+				currentLenght = 0;
 			}
-			else{
-				predSize.y += interline;
-				firstLine = false;
-			}
+			continue;
 		}
-	}
 
+		currentLenght += sourceRectangles[fontText[i]].w * scale +1;
+
+	}
+	if (currentLenght > longest) {
+		longest = currentLenght;
+	}
+	predSize.x = longest;
 	return predSize;
 }
 
