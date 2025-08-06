@@ -58,8 +58,7 @@ bool Font::LoadTextInfo(const std::string& jsonPath) {
 			}
 		}
 	}
-	else
-	{
+	else{
 		std::cout << "Error font json not loaded correctly!\n";
 		return false;
 	}
@@ -117,10 +116,6 @@ void Font::RenderTextCenter(SDL_Renderer* renderer, const std::string& text, SDL
 
 
 void Font::RenderTextFromRight(SDL_Renderer* renderer, const std::string& text, SDL_Rect& btnRect, float scale, int interline, int textStartX, int textStartY) {
-	if (text.empty()) {
-		return;
-	}
-
 	rectangle.x = (btnRect.x + btnRect.w) - textStartX;
 	rectangle.y = btnRect.y + textStartY;
 	rectangle.w = 0;
@@ -143,36 +138,6 @@ void Font::RenderTextFromRight(SDL_Renderer* renderer, const std::string& text, 
 		}
 	}
 }
-
-
-//Only use if button text is static and will not change between frames
-void Font::RenderTextCenterPred(SDL_Renderer* renderer, const std::string& text, SDL_Rect& btnRect, Point& textSizes, float scale, int interline, int textStartX, int textStartY) {
-	textSizes.x *= 0.5;
-	textSizes.y *= 0.5;
-	Point center = GetRectangleCenter(btnRect);
-	rectangle.x = center.x + textStartX - textSizes.x;
-	rectangle.y = center.y + textStartY - textSizes.y;
-	rectangle.w = 0;
-	rectangle.h = 0;
-	int temp = rectangle.x;
-
-
-	for (int i = 0; i < text.length(); i++){
-		if (text[i] < sourceRectangles.size()) {
-			if (text[i] != '\n') {
-				rectangle.w = sourceRectangles[text[i]].w * scale;
-				rectangle.h = sourceRectangles[text[i]].h * scale;
-				SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
-				rectangle.x += (sourceRectangles[text[i]].w * scale) + 1;
-			}
-			else{
-				rectangle.y += interline * scale;
-				rectangle.x = temp;
-			}
-		}
-	}
-}
-
 
 Point Font::CalculatePredefinedSize(const std::string& fontText, const int interline, const float scale) {
 	Point predSize(0, interline); // x width y height

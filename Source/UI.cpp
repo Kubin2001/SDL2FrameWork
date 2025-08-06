@@ -191,6 +191,7 @@ void TemplateUIElement::RenderBorder(SDL_Renderer* renderer) {
 
 void TemplateUIElement::RenderText(SDL_Renderer* renderer) {
 	if (font != nullptr) {
+		if (text.empty()) {	return;}
 		SDL_SetTextureColorMod(font->GetTexture(), 255, 255, 255); // Reset anyway no matter the color
 		SDL_SetTextureColorMod(font->GetTexture(), fontRGB[0], fontRGB[1], fontRGB[2]);
 		switch (textRenderType) {
