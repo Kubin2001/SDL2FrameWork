@@ -41,11 +41,16 @@ void Game::Start() {
 	ui->CreateFont("arial20px", TexMan::GetTex("arial20px"), "Textures/Interface/Fonts/arial20px.json");
 	ui->CreateFont("arial12px", TexMan::GetTex("arial12px"), "Textures/Interface/Fonts/arial12px.json");
 
-	FileExplorer fe;
-	std::string ret = fe.Open("");
-	std::cout<<"Explorer returned: " << ret << "\n";
+	//FileExplorer fe;
+	//std::string ret = fe.Open("");
+	//std::cout<<"Explorer returned: " << ret << "\n";
 
-	Animator::CreateNew("Test", 6, 30, 30, 40, 7);
+	Button *btn = ui->CreateButton("test", 100, 100, 100, 100, nullptr, 
+		ui->GetFont("arial12px"), "tekstowy");
+
+	btn->SetColor(30, 30, 30);
+	btn->SetRenderTextType(2);
+
 
 }
 

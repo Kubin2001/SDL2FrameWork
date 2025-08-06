@@ -83,8 +83,7 @@ void Font::RenderText(SDL_Renderer* renderer, const std::string &text, SDL_Rect 
 	rectangle.w = 0;
 	rectangle.h = 0;
 	int temp = rectangle.x;
-	for (int i = 0; i < text.length(); i++)
-	{
+	for (int i = 0; i < text.length(); i++){
 		if (text[i] < sourceRectangles.size()) {
 			if (text[i] != '\n') {
 				rectangle.w = sourceRectangles[text[i]].w * scale;
@@ -92,8 +91,7 @@ void Font::RenderText(SDL_Renderer* renderer, const std::string &text, SDL_Rect 
 				SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
 				rectangle.x += (sourceRectangles[text[i]].w * scale) + 1;
 			}
-			else
-			{
+			else{
 				rectangle.y += interline * scale;
 				rectangle.x = temp;
 			}
@@ -114,8 +112,7 @@ void Font::RenderTextCenter(SDL_Renderer* renderer, const std::string& text, SDL
 	int temp = rectangle.x;
 
 
-	for (int i = 0; i < text.length(); i++)
-	{
+	for (int i = 0; i < text.length(); i++){
 		if (text[i] < sourceRectangles.size()) {
 			if (text[i] != '\n') {
 				rectangle.w = sourceRectangles[text[i]].w * scale;
@@ -123,8 +120,7 @@ void Font::RenderTextCenter(SDL_Renderer* renderer, const std::string& text, SDL
 				SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
 				rectangle.x += (sourceRectangles[text[i]].w * scale) + 1;
 			}
-			else
-			{
+			else{
 				rectangle.y += interline * scale;
 				rectangle.x = temp;
 			}
@@ -174,8 +170,7 @@ void Font::RenderTextCenterPred(SDL_Renderer* renderer, const std::string& text,
 	int temp = rectangle.x;
 
 
-	for (int i = 0; i < text.length(); i++)
-	{
+	for (int i = 0; i < text.length(); i++){
 		if (text[i] < sourceRectangles.size()) {
 			if (text[i] != '\n') {
 				rectangle.w = sourceRectangles[text[i]].w * scale;
@@ -183,8 +178,7 @@ void Font::RenderTextCenterPred(SDL_Renderer* renderer, const std::string& text,
 				SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
 				rectangle.x += (sourceRectangles[text[i]].w * scale) + 1;
 			}
-			else
-			{
+			else{
 				rectangle.y += interline * scale;
 				rectangle.x = temp;
 			}
@@ -196,8 +190,7 @@ void Font::RenderTextCenterPred(SDL_Renderer* renderer, const std::string& text,
 Point Font::CalculatePredefinedSize(const std::string& fontText, int interline) {
 	Point predSize(0, 0 + interline);
 	bool firstLine = true;
-	for (int i = 0; i < fontText.length(); i++)
-	{
+	for (int i = 0; i < fontText.length(); i++){
 		if (fontText[i] < sourceRectangles.size()) {
 			if (fontText[i] != '\n') {
 				if (firstLine) {
@@ -205,8 +198,7 @@ Point Font::CalculatePredefinedSize(const std::string& fontText, int interline) 
 				}
 
 			}
-			else
-			{
+			else{
 				predSize.y += interline;
 				firstLine = false;
 			}

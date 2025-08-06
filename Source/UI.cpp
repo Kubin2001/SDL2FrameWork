@@ -612,8 +612,7 @@ void UI::CheckHover() {
 				}
 			}
 		}
-		else
-		{
+		else{
 			it->SetHover(false);
 		}
 	}
@@ -628,8 +627,7 @@ void UI::CheckHover() {
 				}
 			}
 		}
-		else
-		{
+		else{
 			it->SetHover(false);
 		}
 	}
@@ -644,8 +642,7 @@ void UI::CheckHover() {
 				}
 			}
 		}
-		else
-		{
+		else{
 			it->SetHover(false);
 		}
 	}
