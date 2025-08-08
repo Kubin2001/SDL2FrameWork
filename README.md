@@ -115,3 +115,5 @@ directories with a single function
  - File Explorer Prototype
  - Better file explorer
  - New UI Element PopUpBox
+ - File Explorer improvements
+ - Better text from right rendering

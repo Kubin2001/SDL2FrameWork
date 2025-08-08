@@ -116,24 +116,24 @@ void Font::RenderTextCenter(SDL_Renderer* renderer, const std::string& text, SDL
 
 
 void Font::RenderTextFromRight(SDL_Renderer* renderer, const std::string& text, SDL_Rect& btnRect, float scale, int interline, int textStartX, int textStartY) {
-	rectangle.x = (btnRect.x + btnRect.w) - textStartX;
-	rectangle.y = btnRect.y + textStartY;
-	rectangle.w = 0;
-	rectangle.h = 0;
-	int initialX = rectangle.x; 
+	const Point textSizes = CalculatePredefinedSize(text, interline, scale);
 
-	for (int i = text.length() - 1; i >= 0; --i) {
+	rectangle.x = btnRect.x + btnRect.w - textSizes.x + textStartX;
+	rectangle.y = btnRect.y + textStartY;
+	const int temp = rectangle.x;
+
+
+	for (int i = 0; i < text.length(); ++i) {
 		if (text[i] < sourceRectangles.size()) {
 			if (text[i] != '\n') {
 				rectangle.w = sourceRectangles[text[i]].w * scale;
 				rectangle.h = sourceRectangles[text[i]].h * scale;
-
-				rectangle.x -= rectangle.w + 1; 
 				SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
+				rectangle.x += (sourceRectangles[text[i]].w * scale) + 1;
 			}
 			else {
 				rectangle.y += interline * scale;
-				rectangle.x = initialX; 
+				rectangle.x = temp;
 			}
 		}
 	}
