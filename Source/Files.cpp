@@ -54,7 +54,14 @@ std::string FileExplorer::Open(const std::string& path) {
 	renderer = SDL_CreateRenderer(window, -1, 0);
 	SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
 
-	std::filesystem::path current = std::filesystem::current_path();
+	std::filesystem::path current;
+	if (std::filesystem::exists(path)) {
+		current = path;
+	}
+	else {
+		current = std::filesystem::current_path();
+	}
+
 	currentPath = current.string();
 	texMan.Start(renderer);
 	texMan.LoadMultiple("Textures/FileExplorer");
@@ -82,7 +89,6 @@ std::string FileExplorer::Open(const std::string& path) {
 std::string FileExplorer::Maintain() {
 	while (!finished) {
 		Input();
-		//Update();
 		SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
 		SDL_RenderClear(renderer);
 		ui->FrameUpdate();
@@ -106,13 +112,18 @@ void FileExplorer::Input() {
 				for (auto &it:folderElements) {
 					it->GetRectangle()->y+=10;
 				}
+				for (auto& it : folderElementsNames) {
+					it->GetRectangle()->y += 10;
+				}
 			}
 			else if (event.wheel.y < 0 && std::abs(absoluteY) < (folderElements.back()->GetRectangle()->y +
 				folderElements.back()->GetRectangle()->h)) { //down
 				absoluteY -= 10;
 				for (auto& it : folderElements) {
-					it->GetRectangle()->y-=10;
-					
+					it->GetRectangle()->y-=10;	
+				}
+				for (auto& it : folderElementsNames) {
+					it->GetRectangle()->y -= 10;
 				}
 			}
 		}
@@ -132,22 +143,25 @@ void FileExplorer::Input() {
 
 	for (size_t i = 0; i < folderElements.size(); ++i) {
 		if (folderElements[i]->ConsumeStatus() || folderElementsNames[i]->ConsumeStatus()) {
+			std::string temp = std::filesystem::path(folderElements[i]->GetName()).string();
 			if (selectedElement == nullptr) {
 				selectedElement = folderElements[i];
-				break;
-			}
-			if (folderElements[i] == selectedElement) {
-				std::string temp = std::filesystem::path(folderElements[i]->GetName()).string();
 				if (std::filesystem::is_directory(temp)) {
-					currentPath = temp;
-					retPath = temp;
-					Update();
-				}
-				else {
 					retPath = temp;
 				}
 				break;
 			}
+			if (folderElements[i] != selectedElement) { continue; }
+
+			if (std::filesystem::is_directory(temp)) {
+				currentPath = temp;
+				retPath = temp;
+				Update();
+			}
+			else {
+				retPath = temp;
+			}
+			break;
 		}
 	}
 }
