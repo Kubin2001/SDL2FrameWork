@@ -27,8 +27,9 @@ class FileExplorer {
 
 		std::vector<ClickBox*> folderElements;
 		std::vector<ClickBox*> folderElementsNames;
+		Button* selectedBox = nullptr; // Background hoover to selected element
 
-		ClickBox* selectedElement = nullptr;
+		ClickBox* selectedElement = nullptr; // Reference to already selected folder element
 
 		std::string Maintain();
 

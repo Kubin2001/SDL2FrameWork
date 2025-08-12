@@ -117,3 +117,4 @@ directories with a single function
  - New UI Element PopUpBox
  - File Explorer improvements
  - Better text from right rendering
+ - Better hovering of selected element in file explorer
