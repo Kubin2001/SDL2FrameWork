@@ -1,4 +1,5 @@
 #pragma once
+#include "Rectangle.h"
 
 // Wymaga sdl2 do dzia³ania
 // Funcja do wykrywania kolizji obiektów 2d w œrodkowisku sdl
@@ -6,21 +7,24 @@
 //    2
 //1       3
 //    4
-int Collision(SDL_Rect rect, SDL_Rect rect2);
+int Collision(const SDL_Rect &rect, const SDL_Rect &rect2);
 // Wymaga sdl2 do dzia³ania
 // Funcja do wykrywania kolizji obiektów 2d w œrodkowisku sdl
 // Zwarca od 1 przypadku wykrycia kolizji a 0 w przypadku jej braku
 // Nie wykrywa strony kolizji a tylko czy takowa mia³a miejsce
-bool SimpleCollision(SDL_Rect rect, SDL_Rect rect2);
+bool SimpleCollision(const SDL_Rect& rect, const SDL_Rect& rect2);
+bool SimpleCollision(const SDL_Rect& rect, const MT::Rect& rect2);
+bool SimpleCollision(const SDL_Rect& rect, const MT::RectF& rect2);
+bool SimpleCollision(const SDL_Rect& rect, const MT::CompositeRect& rect2);
 // Wymaga sdl2 do dzia³ania
 // Funcja do wykrywania kolizji obiektów 2d w œrodkowisku sdl
 // Zwarca od 1 do 4 w przypadku wykrycia kolizji a 0 w przypadku jej braku
 // Dodaje mo¿liwoœæ wybrania g³êbokoœci kolizji
-int AdvancedCollision(SDL_Rect rect, SDL_Rect rect2, int deepth);
+int AdvancedCollision(const SDL_Rect& rect, const SDL_Rect& rect2, int deepth);
 
 //Kolizja rectangle które udaje ko³o i zwyk³ego sdl rect
 //Mowa o kole idealnym nie np 40 na 60 tylko zawsze musi byæ kwadratowe
-bool CircleMouseCollision(const SDL_Rect circleRect, const SDL_Rect rect);
+bool CircleMouseCollision(const SDL_Rect &circleRect, const SDL_Rect &rect);
 
 class CollisonProjectile
 {

@@ -3,7 +3,7 @@
 #include "Colision.h"
 #include "Addons.h"
 
-int Collision(const SDL_Rect rect, const SDL_Rect rect2) {
+int Collision(const SDL_Rect &rect, const SDL_Rect &rect2) {
 
 	int width = rect.w;
 	int height = rect.h;
@@ -40,24 +40,47 @@ int Collision(const SDL_Rect rect, const SDL_Rect rect2) {
 	return 0;
 }
 
-bool SimpleCollision(const SDL_Rect rect, const SDL_Rect rect2) {
-
-	int width = rect.w;
-	int height = rect.h;
-
-	int width2 = rect2.w;
-	int height2 = rect2.h;
-
-	if (rect.x + width >= rect2.x &&
-		rect.x - width2 <= rect2.x &&
-		rect.y + height >= rect2.y &&
-		rect.y - height2 <= rect2.y) {
-		return 1;
+bool SimpleCollision(const SDL_Rect &rect, const SDL_Rect &rect2) {
+	if (rect.x + rect.w >= rect2.x &&
+		rect.x - rect2.w <= rect2.x &&
+		rect.y + rect.h >= rect2.y &&
+		rect.y - rect2.h <= rect2.y) {
+		return true;
 	}
-	return 0;
+	return false;
 }
 
-int AdvancedCollision(const SDL_Rect rect, const SDL_Rect rect2, const int deepth) {
+bool SimpleCollision(const SDL_Rect& rect, const MT::Rect& rect2) {
+	if (rect.x + rect.w >= rect2.x &&
+		rect.x - rect2.w <= rect2.x &&
+		rect.y + rect.h >= rect2.y &&
+		rect.y - rect2.h <= rect2.y) {
+		return true;
+	}
+	return false;
+}
+
+bool SimpleCollision(const SDL_Rect& rect, const MT::RectF& rect2) {
+	if (rect.x + rect.w >= rect2.x &&
+		rect.x - rect2.w <= rect2.x &&
+		rect.y + rect.h >= rect2.y &&
+		rect.y - rect2.h <= rect2.y) {
+		return true;
+	}
+	return false;
+}
+
+bool SimpleCollision(const SDL_Rect& rect, const MT::CompositeRect& rect2) {
+	if (rect.x + rect.w >= rect2.x &&
+		rect.x - rect2.w <= rect2.x &&
+		rect.y + rect.h >= rect2.y &&
+		rect.y - rect2.h <= rect2.y) {
+		return true;
+	}
+	return false;
+}
+
+int AdvancedCollision(const SDL_Rect &rect, const SDL_Rect &rect2, const int deepth) {
 
 	int width = rect.w;
 	int height = rect.h;
@@ -95,7 +118,7 @@ int AdvancedCollision(const SDL_Rect rect, const SDL_Rect rect2, const int deept
 }
 
 
-bool CircleMouseCollision(const SDL_Rect circleRect, const SDL_Rect rect) {
+bool CircleMouseCollision(const SDL_Rect &circleRect, const SDL_Rect &rect) {
 	int centerCirleX = circleRect.x + (int)(circleRect.w * 0.5);
 	int centerCirleY = circleRect.y + (int)(circleRect.h * 0.5);
 	float radius = (float)(circleRect.h * 0.5);

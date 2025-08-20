@@ -118,3 +118,7 @@ directories with a single function
  - File Explorer improvements
  - Better text from right rendering
  - Better hovering of selected element in file explorer
+ 
+ 1.13
+ - New OO set of rectangles
+ 
