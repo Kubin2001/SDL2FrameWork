@@ -21,9 +21,9 @@ Game::Game() {
 }
 
 void Game::Start() {
+	MethaneVersion();
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Global::windowWidth, Global::windowHeight, SDL_WINDOW_SHOWN);
-	//renderer = SDL_CreateRenderer(window, -1, 0);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	Global::defaultDrawColor[0] = 255;
@@ -41,8 +41,6 @@ void Game::Start() {
 	ui->CreateFont("arial20px", TexMan::GetTex("arial20px"), "Textures/Interface/Fonts/arial20px.json");
 	ui->CreateFont("arial12px", TexMan::GetTex("arial12px"), "Textures/Interface/Fonts/arial12px.json");
 
-	FileExplorer fe;
-	std::cout<<fe.Open();
 }
 
 
@@ -75,6 +73,7 @@ void Game::Render() {
 	SDL_RenderClear(renderer);
 
 	ui->Render();
+
 	SDL_RenderPresent(renderer);
 }
 

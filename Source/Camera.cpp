@@ -169,3 +169,7 @@ void Camera::SetMoveSpeed(const int temp) {
 
 int& Camera::GetMoveSpeed() { return this->moveSpeed; }
 
+void Camera::Focus(const int x, const int y) {
+	rectangle.x = x - ((rectangle.w / zoom) / 2);
+	rectangle.y = y - ((rectangle.h / zoom) / 2);
+}

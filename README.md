@@ -121,4 +121,5 @@ directories with a single function
  
  1.13
  - New OO set of rectangles
+ - Camera focus function
  

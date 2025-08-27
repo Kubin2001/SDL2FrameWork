@@ -7,6 +7,8 @@
 #include "GlobalVariables.h"
 #include "Rectangle.h"
 
+void MethaneVersion();
+
 struct MapPos {
 	int rows = 0; //Du¿e Regiony
 	int column = 0;

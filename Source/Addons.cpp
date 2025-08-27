@@ -1,5 +1,9 @@
 #include "Addons.h"
 
+void MethaneVersion() {
+	std::cout << "Using Methane SDL Framework v1.13\n";
+}
+
 Point::Point() {
 
 }
