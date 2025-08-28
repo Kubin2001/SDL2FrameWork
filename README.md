@@ -2,8 +2,8 @@
 
 A simple framework to simplyfy making basic games/ apps for begginers 
 
-Required Libs SDL2 SDL2_Image and SDL2_imager
-Required CPP version at least 17
+Required Libs SDL2 SDL2_Image SDL2_Mixer and SDL2_TTF
+Required CPP version at least 23
 
 # Provides:
 
