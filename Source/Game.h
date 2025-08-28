@@ -3,7 +3,7 @@
 #include <memory>
 #include "Camera.h"
 #include "UI.h"
-
+#include <SDL_ttf.h>
 
 class Game {
 private:

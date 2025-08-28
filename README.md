@@ -123,3 +123,5 @@ directories with a single function
  - New OO set of rectangles
  - Camera focus function
  
+ 1.14
+ - New font loading option that allows any ttf now loading into png and json
