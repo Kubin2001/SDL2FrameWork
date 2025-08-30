@@ -141,7 +141,9 @@ std::vector<std::string> SplitString(const std::string &str, const char seperato
 
 // They work you can uncomment them if you wish but for some reason they sometimes break Intelli Sense
 
-
+inline int RandInt(int min, int max) {
+	return min + rand() % (max - min + 1);
+}
 
 ////Use only if you dont care about elements order
 //template <typename T>

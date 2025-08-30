@@ -1,5 +1,5 @@
 #include <SDL.h>
-#include <iostream>
+#include <print>
 #include <string>
 #include "SDL_image.h"
 #include "Game.h"
@@ -39,7 +39,7 @@ void Game::Start() {
 
 	ui->CreateFont("arial40px", TexMan::GetTex("arial40px"), "Textures/Interface/Fonts/arial40px.json");
 	ui->CreateFont("arial20px", TexMan::GetTex("arial20px"), "Textures/Interface/Fonts/arial20px.json");
-	ui->CreateFont("arial12px", TexMan::GetTex("arial12px"), "Textures/Interface/Fonts/arial12px.json");
+	ui->CreateFont("arial12px", TexMan::GetTex("arial12px"), "Textures/Interface/Fonts/arial12px.json");	
 }
 
 
@@ -92,5 +92,4 @@ Game::~Game() {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
-	//std::cout << "Resources Destroyed";
 }
