@@ -77,13 +77,13 @@ void Font::RenderText(SDL_Renderer* renderer, const std::string &text, SDL_Rect 
 	for (int i = 0; i < text.length(); i++){
 		if (text[i] < sourceRectangles.size()) {
 			if (text[i] != '\n') {
-				rectangle.w = sourceRectangles[text[i]].w * scale;
-				rectangle.h = sourceRectangles[text[i]].h * scale;
+				rectangle.w = (int)(sourceRectangles[text[i]].w * scale);
+				rectangle.h = (int)(sourceRectangles[text[i]].h * scale);
 				SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
-				rectangle.x += (sourceRectangles[text[i]].w * scale) + 1;
+				rectangle.x += (int)(sourceRectangles[text[i]].w * scale) + 1;
 			}
 			else{
-				rectangle.y += interline * scale;
+				rectangle.y += (int)(interline * scale);
 				rectangle.x = temp;
 			}
 		}
@@ -94,21 +94,21 @@ void Font::RenderTextCenter(SDL_Renderer* renderer, const std::string& text, SDL
 	Point textSizes = CalculatePredefinedSize(text,interline,scale);
 
 	Point center = GetRectangleCenter(btnRect);
-	rectangle.x = center.x - (textSizes.x * 0.5) + textStartX;
-	rectangle.y = center.y - (textSizes.y * 0.5) + textStartY;
+	rectangle.x = center.x - (int)(textSizes.x * 0.5) + textStartX;
+	rectangle.y = center.y - (int)(textSizes.y * 0.5) + textStartY;
 	int temp = rectangle.x;
 
 
 	for (int i = 0; i < text.length(); i++){
 		if (text[i] < sourceRectangles.size()) {
 			if (text[i] != '\n') {
-				rectangle.w = sourceRectangles[text[i]].w * scale;
-				rectangle.h = sourceRectangles[text[i]].h * scale;
+				rectangle.w = (int)(sourceRectangles[text[i]].w * scale);
+				rectangle.h = (int)(sourceRectangles[text[i]].h * scale);
 				SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
-				rectangle.x += (sourceRectangles[text[i]].w * scale) + 1;
+				rectangle.x += (int)(sourceRectangles[text[i]].w * scale) + 1;
 			}
 			else{
-				rectangle.y += interline * scale;
+				rectangle.y += (int)(interline * scale);
 				rectangle.x = temp;
 			}
 		}
@@ -127,13 +127,13 @@ void Font::RenderTextFromRight(SDL_Renderer* renderer, const std::string& text, 
 	for (int i = 0; i < text.length(); ++i) {
 		if (text[i] < sourceRectangles.size()) {
 			if (text[i] != '\n') {
-				rectangle.w = sourceRectangles[text[i]].w * scale;
-				rectangle.h = sourceRectangles[text[i]].h * scale;
+				rectangle.w = (int)(sourceRectangles[text[i]].w * scale);
+				rectangle.h = (int)(sourceRectangles[text[i]].h * scale);
 				SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
-				rectangle.x += (sourceRectangles[text[i]].w * scale) + 1;
+				rectangle.x += (int)(sourceRectangles[text[i]].w * scale) + 1;
 			}
 			else {
-				rectangle.y += interline * scale;
+				rectangle.y += (int)(interline * scale);
 				rectangle.x = temp;
 			}
 		}
@@ -156,7 +156,7 @@ Point Font::CalculatePredefinedSize(const std::string& fontText, const int inter
 			continue;
 		}
 
-		currentLenght += sourceRectangles[fontText[i]].w * scale +1;
+		currentLenght += (int)(sourceRectangles[fontText[i]].w * scale) +1;
 
 	}
 	if (currentLenght > longest) {
