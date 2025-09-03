@@ -139,11 +139,16 @@ void ScaleRectanglesToScreen(std::vector<SDL_Rect>& vec, int count, int desiredY
 
 std::vector<std::string> SplitString(const std::string &str, const char seperator, const bool keepSep = false);
 
-// They work you can uncomment them if you wish but for some reason they sometimes break Intelli Sense
-
 inline int RandInt(int min, int max) {
 	return min + rand() % (max - min + 1);
 }
+
+void SetClipSize(SDL_Renderer* ren, const SDL_Rect& rect);
+
+void ResetClipSize(SDL_Renderer* ren);
+
+// They work you can uncomment them if you wish but for some reason they sometimes break Intelli Sense
+
 
 ////Use only if you dont care about elements order
 //template <typename T>

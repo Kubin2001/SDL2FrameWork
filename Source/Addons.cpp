@@ -4,13 +4,6 @@ void MethaneVersion() {
 	std::cout << "Using Methane SDL Framework v1.14\n";
 }
 
-Point::Point() {
-
-}
-
-Point::Point(int x, int y) : x(x), y(y) {}
-
-
 
 MapPos::MapPos() {
 
@@ -345,4 +338,12 @@ std::vector<std::string> SplitString(const std::string& str, const char seperato
 		outVec.emplace_back(tempStr);
 	}
 	return outVec;
+}
+
+void SetClipSize(SDL_Renderer* ren, const SDL_Rect& rect) {
+	SDL_RenderSetClipRect(ren, &rect);
+}
+
+void ResetClipSize(SDL_Renderer* ren) {
+	SDL_RenderSetClipRect(ren, nullptr);
 }

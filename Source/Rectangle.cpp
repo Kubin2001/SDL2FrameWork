@@ -1,5 +1,11 @@
 #include "Rectangle.h"
 
+Point::Point() {
+
+}
+
+Point::Point(int x, int y) : x(x), y(y) {}
+
 namespace MT {
 
     // ----- Rect method definitions -----
