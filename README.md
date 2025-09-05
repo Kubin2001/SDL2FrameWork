@@ -125,3 +125,5 @@ directories with a single function
  
  1.14
  - New font loading option that allows any ttf now loading into png and json
+ - Clipping function in addons.h
+ - Camera enable/disable function
