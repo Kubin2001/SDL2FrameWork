@@ -180,41 +180,40 @@ class PopUpBox : public TemplateUIElement {
 
 class ClickBoxList {
 	private:
-		UI* ui = nullptr;
+	UI* ui = nullptr;
 
-		ClickBox* mainElement = nullptr;
+	ClickBox* mainElement = nullptr;
 
-		std::vector<ClickBox*> Elements = {};
+	std::vector<ClickBox*> Elements = {};
 
-		std::vector<std::string> names = {};
+	bool initalized = false;
 
-		bool initalized = false;
-
-		bool expanded = false;
+	bool expanded = false;
 
 	public:
 
-		void Innit(UI* ui, ClickBox* main, std::vector<std::string> names, int w, int h, int R, int G, int B, std::string* texts, short space = 0);
+	void Innit(UI* ui, ClickBox* main, int w, int h, int R, int G, int B, const std::vector<std::string>& texts, short space = 0);
 
-		bool IsInitialized();
+	bool IsInitialized();
 
-		bool IsExpanded();
+	bool IsExpanded();
 
-		ClickBox* Get(short index);
+	ClickBox* Main();
 
-		ClickBox* Main();
+	std::vector<ClickBox*>& GetAll();
 
-		std::vector<ClickBox*>& GetAll();
+	void Expand();
 
-		void Expand();
+	void Hide();
 
-		void Hide();
+	void Clear();
 
-		void Clear();
-
-		ClickBox* operator [](const size_t index) {
-			return Elements[index];
+	ClickBox* operator [](const size_t index) {
+		if (index > Elements.size() - 1) {
+			throw std::runtime_error("Click box list element out of index");
 		}
+		return Elements[index];
+	}
 };
 
 // To propelly start the UI you need to pleace manage input function in event loop and render in rendering loop

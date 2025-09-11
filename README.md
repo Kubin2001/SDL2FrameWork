@@ -127,3 +127,4 @@ directories with a single function
  - New font loading option that allows any ttf now loading into png and json
  - Clipping function in addons.h
  - Camera enable/disable function
+ - Cleaner ClickBoxList
