@@ -47,6 +47,10 @@ public:
 
 	void RenderTextFromRight(SDL_Renderer* renderer, const std::string& text, SDL_Rect& btnRect, float scale = 1.0, int interline = 20, int textStartX = 0, int textStartY = 0);
 
+	void RenderTextCenterX(SDL_Renderer* renderer, const std::string& text, SDL_Rect& btnRect, float scale = 1.0, int interline = 20, int textStartX = 0, int textStartY = 0);
+
+	void RenderTextCenterY(SDL_Renderer* renderer, const std::string& text, SDL_Rect& btnRect, float scale = 1.0, int interline = 20, int textStartX = 0, int textStartY = 0);
+
 	Point CalculatePredefinedSize(const std::string& fontText, const int interline, const float scale);
 };
 

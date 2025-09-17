@@ -140,6 +140,56 @@ void Font::RenderTextFromRight(SDL_Renderer* renderer, const std::string& text, 
 	}
 }
 
+void Font::RenderTextCenterX(SDL_Renderer* renderer, const std::string& text, SDL_Rect& btnRect, float scale, int interline, int textStartX, int textStartY) {
+	Point textSizes = CalculatePredefinedSize(text, interline, scale);
+
+	Point center = GetRectangleCenter(btnRect);
+	rectangle.x = center.x - (int)(textSizes.x * 0.5f) + textStartX;
+	rectangle.y = btnRect.y + textStartY;
+	int temp = rectangle.x;
+
+
+	for (int i = 0; i < text.length(); i++) {
+		if (text[i] < sourceRectangles.size()) {
+			if (text[i] != '\n') {
+				rectangle.w = (int)(sourceRectangles[text[i]].w * scale);
+				rectangle.h = (int)(sourceRectangles[text[i]].h * scale);
+				SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
+				rectangle.x += (int)(sourceRectangles[text[i]].w * scale) + 1;
+			}
+			else {
+				rectangle.y += (int)(interline * scale);
+				rectangle.x = temp;
+			}
+		}
+	}
+}
+
+void Font::RenderTextCenterY(SDL_Renderer* renderer, const std::string& text, SDL_Rect& btnRect, float scale, int interline, int textStartX, int textStartY) {
+	Point textSizes = CalculatePredefinedSize(text, interline, scale);
+
+	Point center = GetRectangleCenter(btnRect);
+	rectangle.x = btnRect.x + textStartX;
+	rectangle.y = center.y - (int)(textSizes.y * 0.5f) + textStartY;
+	int temp = rectangle.x;
+
+
+	for (int i = 0; i < text.length(); i++) {
+		if (text[i] < sourceRectangles.size()) {
+			if (text[i] != '\n') {
+				rectangle.w = (int)(sourceRectangles[text[i]].w * scale);
+				rectangle.h = (int)(sourceRectangles[text[i]].h * scale);
+				SDL_RenderCopy(renderer, texture, &sourceRectangles[text[i]], &rectangle);
+				rectangle.x += (int)(sourceRectangles[text[i]].w * scale) + 1;
+			}
+			else {
+				rectangle.y += (int)(interline * scale);
+				rectangle.x = temp;
+			}
+		}
+	}
+}
+
 Point Font::CalculatePredefinedSize(const std::string& fontText, const int interline, const float scale) {
 	Point predSize(0, interline); // x width y height
 	

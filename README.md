@@ -128,3 +128,4 @@ directories with a single function
  - Clipping function in addons.h
  - Camera enable/disable function
  - Cleaner ClickBoxList
+ - Options for centered text rendering only on X or Y axis

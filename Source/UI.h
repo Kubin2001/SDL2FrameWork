@@ -4,15 +4,17 @@
 #include <vector>
 #include <optional>
 #include <map>
+#include <unordered_map>
+
+#include "Basics.h"
 #include "Font.h"
 #include "TextureManager.h"
-#include "unordered_map"
 #include "SoundManager.h"
 
-class TemplateUIElement {
-protected:
+class Button : public GameObject {
+	protected:
 	SDL_Texture* texture = nullptr;
-	SDL_Rect rectangle = {0,0,0,0};
+	SDL_Rect rectangle = { 0,0,0,0 };
 	std::string name = "";
 	std::string text = "";
 	float textScale = 1.0f;
@@ -25,7 +27,7 @@ protected:
 	int textStartX = 0;
 	int textStartY = 0;
 
-	unsigned char buttonColor[4] = { 255,255,255,255};
+	unsigned char buttonColor[4] = { 255,255,255,255 };
 
 	unsigned char borderRGB[3] = { 255,255,255 };
 
@@ -51,7 +53,7 @@ protected:
 
 	void SetBorder(bool temp);
 
-public:
+	public:
 
 	SDL_Texture* GetTexture();
 
@@ -86,13 +88,13 @@ public:
 
 	void SetFont(Font* font);
 
-	void SetColor(const unsigned char R, const unsigned char G, const unsigned char B, const unsigned char A= 255);
+	void SetColor(const unsigned char R, const unsigned char G, const unsigned char B, const unsigned char A = 255);
 
 	void SetBorderRGB(const unsigned char R, const unsigned char G, const unsigned char B);
 
 	void SetFontColor(const unsigned char R, const unsigned char G, const unsigned char B);
 
-	void Render(SDL_Renderer *renderer);
+	void Render(SDL_Renderer* renderer);
 
 	void RenderItslelf(SDL_Renderer* renderer);
 
@@ -115,59 +117,54 @@ public:
 
 	void SetHover(bool temp);
 
-	void SetHoverFilter(const bool filter,const unsigned char R, const unsigned char G, const unsigned char B, const unsigned char A, const std::string &sound = "");
+	void SetHoverFilter(const bool filter, const unsigned char R, const unsigned char G, const unsigned char B, const unsigned char A, const std::string& sound = "");
 
 	std::string& GetHooverSound();
 
+	friend class UI;
 };
 
 // A button that can be clicked with a mouse
-class ClickBox : public TemplateUIElement {
-private:
-	bool status = false;
-	bool turnedOn = true;
+class ClickBox : public Button {
+	private:
+		bool status = false;
+		bool turnedOn = true;
 
-	std::string clickSound = "";
-public:
-	bool GetStatus();
+		std::string clickSound = "";
+	public:
+		bool GetStatus();
 
-	void SetStatus(bool value);
+		void SetStatus(bool value);
 
-	bool ConsumeStatus();
+		bool ConsumeStatus();
 
-	void TurnOn();
+		void TurnOn();
 
-	void TurnOff();
+		void TurnOff();
 
-	bool IsOn();
+		bool IsOn();
 
-	void SetClickSound(const std::string &temp);
+		void SetClickSound(const std::string &temp);
 
-	std::string &GetClickSound();
+		std::string &GetClickSound();
 
-	friend class UI;
+		friend class UI;
 };
 
-
 // Button that can accept text input
-class TextBox : public TemplateUIElement {
-private:
-	bool turnedOn = false;
-public:
-	void CheckInteraction(SDL_Event& event);
+class TextBox : public Button {
+	private:
+		bool turnedOn = false;
+	public:
+		void CheckInteraction(SDL_Event& event);
 
-	void ManageTextInput(SDL_Event& event);
-	friend class UI;
+		void ManageTextInput(SDL_Event& event);
+		friend class UI;
 };
 
 // Basic non interactive button
-class Button : public TemplateUIElement {
-	public:
-		friend class UI;
 
-};
-
-class PopUpBox : public TemplateUIElement {
+class PopUpBox : public Button {
 	private:
 		int lifeTime = 0;
 
