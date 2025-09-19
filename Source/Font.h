@@ -27,6 +27,8 @@ private:
 public:
 	Font(const std::string& name, SDL_Texture* texture, const std::string& jsonPath);
 
+	Font(const std::string& name, SDL_Texture* texture, const std::string& charset, std::vector<SDL_Rect>& rectangles);
+
 	std::string GetName();
 
 	SDL_Rect* GetRectangle();
@@ -40,6 +42,8 @@ public:
 	void SetTexture(SDL_Texture* temptex);
 
 	bool LoadTextInfo(const std::string& jsonPath);
+
+	void LoadTextCharset(const std::string& charset, std::vector<SDL_Rect>& rectangles);
 
 	void RenderText(SDL_Renderer* renderer, const std::string& text, SDL_Rect &btnRect, float scale = 1.0, int interline = 20, int textStartX = 0, int textStartY = 0);
 
@@ -69,6 +73,8 @@ public:
 	void ScanFont(const std::string& texturePath, const std::string& charactersDataPath,
 		unsigned char fR, unsigned char fG, unsigned char fB, unsigned char bR, unsigned char bG, unsigned char bB, int width, int height
 	, const std::string& outputPath = "font.json");
+
+	void CrateTempFontFromTTF(SDL_Renderer* ren, const char* ttfPath, const int size, const std::string& name);
 
 	~FontManager();
 };

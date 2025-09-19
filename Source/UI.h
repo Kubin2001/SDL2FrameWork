@@ -285,7 +285,7 @@ public:
 
 	bool DeletePopUpBox(const std::string& name);
 
-	bool DeleteAnyButton(const std::string& name);
+	bool DeleteAnyElem(const std::string& name);
 
 	void Render();
 
@@ -299,6 +299,8 @@ public:
 
 	// You need to provide not name (made up by you) texture (needs to be already loaded by texture manager) path to pregenerated json file
 	void CreateFont(const std::string& name, SDL_Texture* texture, const std::string& jsonPath);
+
+	void CrateTempFontFromTTF(SDL_Renderer* ren, const char* ttfPath, const int size, const std::string& name);
 
 	Font* GetFont(const std::string& name);
 

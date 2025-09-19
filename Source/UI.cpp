@@ -839,7 +839,7 @@ bool UI::DeletePopUpBox(const std::string& name) {
 	return false;
 }
 
-bool UI::DeleteAnyButton(const std::string& name) {
+bool UI::DeleteAnyElem(const std::string& name) {
 	if (DeleteButton(name)) { return true; }
 	if (DeleteTextBox(name)) { return true; }
 	if (DeleteClickBox(name)) { return true; }
@@ -865,6 +865,10 @@ std::vector<PopUpBox*>& UI::GetPopUpBoxes() {
 
 void UI::CreateFont(const std::string& name, SDL_Texture* texture, const std::string& jsonPath) {
 	fontManager->CreateFont(name, texture, jsonPath);
+}
+
+void UI::CrateTempFontFromTTF(SDL_Renderer* ren, const char* ttfPath, const int size, const std::string& name) {
+	fontManager->CrateTempFontFromTTF(ren,ttfPath, size, name);
 }
 
 Font* UI::GetFont(const std::string& name) {
