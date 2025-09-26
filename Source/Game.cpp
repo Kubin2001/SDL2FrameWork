@@ -43,7 +43,9 @@ void Game::Start() {
 
 	ui->CrateTempFontFromTTF(renderer,"Fonts/arial.ttf", 30, "arial30px");
 
-	Button* btn = ui->CreateButton("test", 100, 100, 100, 100, nullptr, ui->GetFont("arial30px"), "some text");
+	ui->SetBaseFont(ui->GetFont("arial12px"));
+
+	Button* btn = ui->CreateButton("test", 100, 100, 100, 100, nullptr, ui->GetBaseFont(), "some text");
 	btn->SetColor(30, 30, 30);
 }
 
