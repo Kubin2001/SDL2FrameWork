@@ -139,6 +139,10 @@ Point TexMan::GetTextureSize(const std::string& name) {
 	return p;
 }
 
+std::unordered_map<std::string, SDL_Texture*>& TexMan::GetAllTex() {
+	return Textures;
+}
+
 SDL_Surface* CopyVectorToSurface(std::vector<std::vector<SDL_Color>> &copySurfData) {
 	int width = (int)copySurfData.size();
 	int height = (int)copySurfData[0].size();

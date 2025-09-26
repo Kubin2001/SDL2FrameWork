@@ -130,3 +130,4 @@ directories with a single function
  - Cleaner ClickBoxList
  - Options for centered text rendering only on X or Y axis
  - Option to Set Base Font for UI
+ - Option to get all font from UI and all textures from Texture Manager
